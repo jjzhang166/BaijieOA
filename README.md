@@ -6,12 +6,12 @@
 随OA系统同时提供的还有百捷WEB开发平台、百捷工作流平台，让使用者无忧使用、任意定制属于自己的OA系统。
     
 #在线演示与体验
-可以通过以下链接进入演示
-[在线演示](http://www.baijienet.com/oademo_0.html "百捷OA系统在线演示")
+可以通过以下链接进入演示<br>
+[在线演示 http://www.baijienet.com/oademo_0.html](http://www.baijienet.com/oademo_0.html "百捷OA系统在线演示")
     
 #如何获得技术支持
 可以通过论坛、QQ群、邮件、电话等获得免费的技术支持。<br>
-`论坛`：[点击进入](http://www.baijienet.com/bbs/home.esh "百捷论坛")<br>
+`论坛`：[http://www.baijienet.com/bbs/home.esh](http://www.baijienet.com/bbs/home.esh "百捷论坛")<br>
 `QQ群`：276228406<br>
 `免费电话`：400-0809052<br>
 `邮件`：[点此发邮件](mailto:mydee@21cn.com)<br>
