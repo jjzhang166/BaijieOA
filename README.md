@@ -10,10 +10,16 @@
 [在线演示 http://www.baijienet.com/product/oademo_0.html](http://www.baijienet.com/product/oademo_0.html "百捷OA系统在线演示")<br>
 <br>
 [下载一键安装包](http://www.baijienet.com/download/files/wmosetup.rar "百捷OA系统一键安装包")
-    
+ 
+#如何阅读和修改源码
+本项目采用C++和Dcpp混合语言编程模式。Dcpp是对C++进行简化、扩展、动态化后的语言，作用类似于VBScript/PHP等脚本语言。<br>
+本项目源码需要DcppStudio打开进行阅读和编辑。DcppStudio是Dcpp集成开发环境，支持WEB开发和工作流开发。
+可以到这里[下载DcppStudio](http://www.baijienet.com/download/files/DcppStudio.rar "DcppStudio集成开发环境")
+
 #如何获得技术支持
 可以通过论坛、QQ群、邮件、电话等获得免费的技术支持。<br>
 * `论坛`：[http://www.baijienet.com/bbs/home.esh](http://www.baijienet.com/bbs/home.esh "百捷论坛")<br>
 * `QQ群`：276228406<br>
 * `免费电话`：400-0809052<br>
 * `邮件`：[点此发邮件](mailto:mydee@21cn.com)
+
