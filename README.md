@@ -5,9 +5,11 @@
         本项目旨在提供一套开源并且免费的通用型OA系统，与动辄上万甚至几十万的OA系统相比，本系统极大地减少OA的成本并提高OA实施的成功率。
         随OA系统同时提供的还有百捷WEB开发平台、百捷工作流平台，让使用者无忧使用、任意定制属于自己的OA系统。
     
-#在线演示与体验
+#演示与下载
 可以通过以下链接进入演示<br>
-[在线演示 http://www.baijienet.com/product/oademo_0.html](http://www.baijienet.com/product/oademo_0.html "百捷OA系统在线演示")
+[在线演示 http://www.baijienet.com/product/oademo_0.html](http://www.baijienet.com/product/oademo_0.html "百捷OA系统在线演示")<br>
+<br>
+[下载一键安装包](http://www.baijienet.com/download/files/wmosetup.rar "百捷OA系统一键安装包")
     
 #如何获得技术支持
 可以通过论坛、QQ群、邮件、电话等获得免费的技术支持。<br>
