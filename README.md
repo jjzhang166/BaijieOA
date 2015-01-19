@@ -7,7 +7,7 @@
     
 #在线演示与体验
 可以通过以下链接进入演示<br>
-[在线演示 http://www.baijienet.com/oademo_0.html](http://www.baijienet.com/oademo_0.html "百捷OA系统在线演示")
+[在线演示 http://www.baijienet.com/product/oademo_0.html](http://www.baijienet.com/product/oademo_0.html "百捷OA系统在线演示")
     
 #如何获得技术支持
 可以通过论坛、QQ群、邮件、电话等获得免费的技术支持。<br>
