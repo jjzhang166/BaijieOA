@@ -1,0 +1,24 @@
+public function SizeToText(var nSize)
+{
+	var str="";
+	var n = int(nSize);
+	if( n < 1024 )
+	{
+		str = ""+n+"B";
+	}
+	else if( n < 1024 * 1024 )
+	{
+		str = "" + (n / 1024)+"KB";
+	}
+	else if( n < 1024 * 1024 * 1024 )
+	{
+		n /= (1024 * 1024);
+		str = ""+n+"MB";
+	}
+	else
+	{
+		n /= (1024 * 1024 * 1024);
+		str = ""+n+"GB";
+	}
+	return str;
+}

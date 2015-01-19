@@ -1,0 +1,59 @@
+public const 表名 = "t_unit";
+
+public class 部门类型
+{
+	public const Department=0;//部门
+	public const Office=1;//办公室，如：总经理办公室
+	public const FieldOffice=2;//外地办事处
+	public const Group=3;//小组
+	public const Branch=4;//分公司
+	
+	public static function Text(var unittype)
+	{
+		var a = ["部门","办公室","外地办事处","小组","分公司"];
+		return a[ int(unittype) ];
+	}
+}
+
+public function LoadByID(var id)
+{
+	var oRecord = (new dao.table(表名)).Single("where isdeleted=0 and id=?",id);
+	return (oRecord);
+}
+
+public function LoadUsers(var oUnit)
+{
+	var rs = (new dao.table( "t_user" ) ).Query(
+		"select * from t_user where isdeleted=0 and id in ( select userid from " + 表名 + " where unitid=? )",
+		int(oUnit.id)
+		);
+
+	return rs;
+}
+
+public function GetUnitPath(var id)
+{
+	var ret = [];
+
+	while( int(id) <> 0 )
+	{
+		var obj = (new dao.table("t_unit")).Single("where id=? and isdeleted=0",int(id));//fix me later : 将来支持多组织结构时，需增加orgid条件
+		if( obj == null ) break;
+		ret.Add([obj.name,obj.id]);
+		id = obj.pid;
+	}
+	
+	ret.Add(["根级",""]);//名称，ID
+	return ret;
+}
+public function GetUnitPathString(var aUnit)
+{
+	var str=[];
+	var iCount = aUnit.Count;
+	for(var i=iCount-1;i>=0;i--)
+	{
+		str.Add( "|"+ aUnit[i][1] );
+	}
+	return string(str);
+}
+

@@ -1,0 +1,41 @@
+ServicePage
+{
+Code:"<%
+var vo = new vo();
+var all = (new dao.table(\"t_schedule\")).Query(
+	\"select a.*,b.backgroundcolor,b.bordercolor,b.textcolor from t_schedule a left join t_schedule_cat b on a.catid = b.id where a.isdeleted=0 and a.userid=? and ( (starttime >= ? and starttime <= ?) or (endtime >= ? and endtime <= ?) )\",
+	int( (new session())[\"UserID\"]),
+	vo.start,
+	vo.end,
+	vo.start,
+	vo.end
+	);
+var events=[];
+each(a,all)
+{
+	events.Add({
+		\"id\":a.id,
+		\"title\": a.title,
+		\"start\" : a.starttime,
+		\"end\" : a.endtime,
+		\"allDay\" : true,
+		\"backgroundColor\" : a.backgroundcolor,
+		\"bordercolor\"	: a.bordercolor,
+		\"textColor\" : a.textcolor
+	});
+}
+var json = (new helper()).ConvertToJson(events);
+(new response()).ContentType = \"text/json; charset=utf-8\";
+echo(json);
+
+%>"
+Name:ServicePage1
+PageID:FP99CADED4EED24E1C8680A6066C9E0A83
+Position
+{
+Height:123
+Left:125
+Top:133
+Width:289
+}
+}

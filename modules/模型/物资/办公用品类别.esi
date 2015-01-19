@@ -1,0 +1,13 @@
+public const 表名 = "t_office_supplies_cat";
+
+public function LoadByID(var id)
+{
+	var oRecord = (new dao.table(表名)).Single("where isdeleted=0 and id=?",int(id));
+	return (oRecord);
+}
+
+public function LoadAll()
+{
+	var all = (new dao.table(表名)).Query("where isdeleted=0");
+	return all;
+}

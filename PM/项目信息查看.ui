@@ -1,0 +1,529 @@
+BjPage
+{
+AdjustFrame:0
+BeforeCreate:""
+BodyProp:""
+BootstrapVer:2
+Caption:""
+Enabled:1
+Name:BjPage1
+PageID:""
+ParenClass:""
+Visible:1
+Workflow:0
+Position
+{
+Height:600
+Left:82
+Top:80
+Width:800
+}
+Events
+{
+Def:""
+OnLoad:""
+}
+@
+{
+UserControl
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:UserControl1
+PathName:"/template/基础功能.ui"
+Visible:1
+Position
+{
+Height:931
+Left:48
+Top:28
+Width:1080
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:""
+ID:""
+Name:BaseClient
+TagName:""
+Visible:1
+Position
+{
+Height:878
+Left:18
+Top:24
+Width:1037
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:""
+ID:""
+Name:Box1
+TagName:""
+Visible:1
+Position
+{
+Height:162
+Left:12
+Top:12
+Width:985
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:""
+ID:""
+Name:Box3
+TagName:""
+Visible:1
+Position
+{
+Height:78
+Left:16
+Top:11
+Width:423
+}
+@
+{
+html_image
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"float:left;margin-top:7px\""
+Name:html_image_1
+Visible:1
+src:"<% echo(FixUrl(\"/images/bankuaijiantou.gif\")); %>"
+Position
+{
+Height:45
+Left:13
+Top:14
+Width:50
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"float:left;\""
+ID:""
+Name:Box5
+TagName:span
+Visible:1
+Position
+{
+Height:55
+Left:76
+Top:14
+Width:331
+}
+@
+{
+BjBreadcrumbNav
+{
+BeforeCreate:""
+ExtProp:"style=\"background-Color:white;padding:2px;margin:2px\" "
+Name:BjBreadcrumbNav1
+Position
+{
+Height:40
+Left:11
+Top:5
+Width:307
+}
+@
+{
+BjBreadcrumb
+{
+Active:""
+BeforeCreate:""
+Caption:桌面
+Divider:"/"
+Enabled:1
+Name:BjBreadcrumb1
+Visible:1
+href:"<%echo(FixUrl(\"/main/mydesk.esh\"));%>"
+Position
+{
+Height:20
+Left:9
+Top:12
+Width:80
+}
+}
+BjBreadcrumb
+{
+Active:""
+BeforeCreate:""
+Caption:项目信息
+Divider:"/"
+Enabled:1
+Name:BjBreadcrumb2
+Visible:1
+href:项目信息.esh
+Position
+{
+Height:20
+Left:97
+Top:12
+Width:80
+}
+}
+BjBreadcrumb
+{
+Active:""
+BeforeCreate:""
+Caption:查看
+Divider:""
+Enabled:1
+Name:BjBreadcrumb2
+Visible:1
+href:""
+Position
+{
+Height:20
+Left:188
+Top:12
+Width:80
+}
+}
+}
+}
+}
+}
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"float:right\""
+ID:""
+Name:Box4
+TagName:""
+Visible:1
+Position
+{
+Height:89
+Left:613
+Top:11
+Width:320
+}
+@
+{
+BjButton
+{
+BeforeCreate:""
+Block:0
+ButtonType:back
+Caption:"<i class=\"icon-repeat \" style=\"margin-right:5px\" ></i>返回"
+Enabled:1
+Feedback:default
+ID:""
+Inline:1
+Name:BjButton2
+Size:default
+URL:""
+URLParam:""
+Visible:1
+Position
+{
+Height:20
+Left:112
+Top:39
+Width:80
+}
+Events
+{
+OnClick:""
+OnClientClick:""
+}
+}
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"class=\"clearfix\" style=\"margin-bottom:5px\""
+ID:""
+Name:Box6
+TagName:""
+Visible:1
+Position
+{
+Height:22
+Left:0
+Top:132
+Width:493
+}
+}
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"class=\"line\" style=\"magrin-top:5px;margin-bottom:5px;\""
+ID:""
+Name:Box2
+TagName:""
+Visible:1
+Position
+{
+Height:30
+Left:12
+Top:183
+Width:985
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:""
+ID:""
+Name:Box7
+TagName:""
+Visible:1
+Position
+{
+Height:629
+Left:12
+Top:229
+Width:985
+}
+@
+{
+BjSubmitArea
+{
+Action:""
+BeforeCreate:"var oRecord = (new dao.table(\"oa_project\")).Single(\"where id=?\",int(me._vo.id));
+if( oRecord == null ) oRecord = {};"
+Caption:""
+FileUpload:0
+Horz:0
+ID:""
+Inline:0
+Method:post
+Name:BjSubmitArea1
+Search:0
+Position
+{
+Height:300
+Left:28
+Top:13
+Width:400
+}
+@
+{
+Html
+{
+BeforeCreate:""
+Caption:""
+Code:"<div>    
+
+     <!--******************************增加页面代码********************************-->
+
+<table style=\"width: 100%\" bgcolor=\"#999999\" border=\"0\" cellpadding=\"2\" cellspacing=\"1\">
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		项目名称：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<% echo(oRecord.projectname); %>
+       </td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		项目编号：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		 <% echo(oRecord.projectserils); %> 
+		
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		所属客户：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		 <% echo(oRecord.suoshukehu); %> 
+		
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		预计成交日期：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		 <% echo(oRecord.yujichengjiaoriqi); %> 
+        </td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		提醒日期：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		 <% echo(oRecord.tixingdate); %> 
+        
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		负责人：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		 <% echo(oRecord.fuzheren); %> 
+        </td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		项目金额：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		 <% echo(oRecord.xiangmujine); %> 
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		项目预算：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		 <% echo(oRecord.xingmuyusuan); %> 
+		</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		项目大小：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		 <% echo(oRecord.xiangmudaxiao); %> 
+		</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		项目配合人：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		 <% echo(oRecord.peiherenlist); %> 
+        </td></tr>
+	<tr>
+        <td align=\"right\" style=\"width: 170px; height: 25px; background-color: #cccccc\">
+		合同以及附件：</td>
+        <td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\">
+         
+            </td>
+    </tr>
+
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		备注说明：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		 <% echo( (new helper()).HtmlDecode(oRecord.backinfo) ); %> 
+	</td></tr>
+</table>
+</div>"
+Name:Html1
+Position
+{
+Height:20
+Left:36
+Top:68
+Width:80
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"margin-top:10px;margin-bottom:10px\""
+ID:""
+Name:Box8
+TagName:""
+Visible:1
+Position
+{
+Height:49
+Left:27
+Top:122
+Width:347
+}
+@
+{
+BjButton
+{
+BeforeCreate:""
+Block:0
+ButtonType:back
+Caption:"<i class=\"icon-repeat \" style=\"margin-right:5px\" ></i>返回"
+Enabled:1
+Feedback:default
+ID:""
+Inline:1
+Name:btncancel_oa_workrizhi
+Size:default
+URL:""
+URLParam:""
+Visible:1
+Position
+{
+Height:20
+Left:113
+Top:11
+Width:80
+}
+Events
+{
+OnClick:""
+OnClientClick:""
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+EasyScript
+{
+Caption:设置二级菜单
+Code:"me.ControlProp[\"二级菜单/Active\"] = \"项目信息\";"
+CodeType:load
+Name:EasyScript1
+Position
+{
+Height:20
+Left:26
+Top:-39
+Width:80
+}
+}
+}
+}

@@ -1,0 +1,181 @@
+public class 实体
+{
+	public var _Session = new session();
+	private var _Roles;
+	private var _TopFunctions;
+	private var _User;
+
+	public function __prop(var sName,var sValue)
+	{
+		if( argc < 2 )
+		{
+			switch(sName)
+			{
+				case "ID" :
+				{
+					return _Session.ID;
+				}
+				case "User":
+				{
+					if( _User == null )
+					{
+						_User = modulecall("模型.组织.用户.操作.LoadByID",_Session["UserID"]);
+					}
+					return _User;
+				}
+				case "UserID":
+				{
+					return int( _Session["UserID"] );
+				}
+				case "UserName":
+				{
+					return _Session["UserName"];
+				}
+				case "Alias":
+				{
+					return _Session["Alias"];
+				}
+				case "Icon": return _Session["Icon"];
+				case "LoginTime":
+				{
+					var dt = new DateTime();
+					dt.FromString( _Session["LoginTime"] );
+					return dt;
+				}
+				case "Session": 
+					return _Session;
+				case "Roles":
+				{
+					if( _Roles == null )
+					{
+						var str = _Session["Roles"];
+						_Roles = (new helper()).ConvertFromJson(str);
+					}
+					return _Roles;
+				}
+				case "TopFunctions" :
+				{
+					if( _TopFunctions == null )
+					{
+						var str = (new session())["TopFunc"];
+						_TopFunctions = (new helper()).ConvertFromJson(str)；
+					}
+					return _TopFunctions;
+				}
+				case "OpenFunctions":
+				{
+					var str = (new session())["OpenFunctions"];
+					return  (new helper()).ConvertFromJson(str)；
+				}
+				default: throw "属性("+sName+")不存在或不可读";
+			}
+		}
+		else
+		{
+			switch(sName)
+			{
+				default: throw "属性("+sName+")不存在或不可写";
+			}
+		}
+	}
+}
+
+public function Current()
+{
+	var obj = context.会话;
+	if( obj == null )
+	{
+		obj = new 模型.运行时.会话.实体();
+		context.会话 = obj;
+	}
+	return obj;
+}
+
+public function 创建会话(var oUser)
+{
+	var helper = new helper();
+	var oSession = new session();
+	oSession.CreateNewSession();
+	//用户ID
+	oSession["UserID"] = oUser.id;
+	//帐号
+	oSession["UserName"] = oUser.loginname;
+	//昵称
+	oSession["Alias"] = oUser.alias;
+	//登录时间
+	oSession["LoginTime"] = new DateTime();
+	//Icon
+	oSession["Icon"] = (oUser.icon == "" ? "/images/guest.png" : oUser.icon);
+	//生成角色
+	var allRole = modulecall("模型.组织.角色.GetUserRoles",oUser);
+	//(new log()).Infor("allRole="+allRole);
+	var tmpRoles=[];
+	each(a,allRole)
+	{
+		tmpRoles.Add({
+			"ID"	: a.id,
+			"Name"	: a.name,
+			"Type"	: a.roletype
+		});
+	}
+	oSession["Roles"] = helper.ConvertToJson(tmpRoles);
+}
+
+//销毁会话
+public function 销毁会话()
+{
+	var oSession = new session();
+	oSession["UserID"] = 0;
+	oSession["UserName"] = "";
+	oSession["Alias"] = "";
+	oSession["Roles"] = "[]";
+	oSession["cc"] = "";
+	oSession["WebSite"] = "";
+	oSession["dbserver"] = "";
+	oSession["dbuser"] = "";
+	oSession["dbpwd"] = "";
+	oSession["database"] = "";
+	(new vo()).__sid__ = "";
+	oSession.Remove();
+}
+
+public function 打开顶级功能(var 会话,var sFuncName)
+{
+	var all = 会话.OpenFunctions;
+	each(a,all)
+	{
+		if( a.name == sFuncName )
+			return;//功能已经打开
+	}
+	var top = 会话.TopFunctions;
+	var oFunc;
+	each(a,top)
+	{
+		if( a.name == sFuncName )
+		{
+			oFunc = a;
+			break;
+		}
+	}
+	if( oFunc <> null )
+	{
+		all.Add( oFunc );
+		会话.Session["OpenFunctions"] = (new helper()).ConvertToJson( all );
+	}
+}
+
+public function 关闭顶级功能(var 会话,var sFuncName)
+{
+	var all = 会话.OpenFunctions;
+	var iCount = all.Count;
+	for(var i=0;i<iCount;i++)
+	{
+		var a = all[i];
+		if( a.Name == sFuncName )
+		{
+			all.RemoveByIndex(i);
+			会话.Session["OpenFunctions"] = (new helper()).ConvertToJson( all );
+			break;
+		}
+	}
+}

@@ -1,0 +1,22 @@
+public const 表名 = "t_worklog";
+
+public class 日志状态
+{
+	//日志状态
+	public const 计划中 = 0;
+	public const 正在做 = 1;
+	public const 已完成 = 2;
+	public const 已取消 = 3;
+
+	public static function Text(var nStatus)
+	{
+		var a=["计划中","正在做","已完成","已取消"];
+		return a[nStatus];
+	}
+}
+
+public function LoadByID(var id)
+{
+	var obj = (new dao.table(表名)).Single("where id=?",int(id));
+	return (obj);
+}

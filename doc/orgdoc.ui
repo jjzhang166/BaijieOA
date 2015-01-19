@@ -1,0 +1,63 @@
+BjPage
+{
+AdjustFrame:0
+BeforeCreate:""
+BodyProp:""
+BootstrapVer:2
+Caption:单位文档
+Enabled:1
+Name:BjPage1
+PageID:FP352568715B584313869DE751D9D75AB1
+ParenClass:""
+Visible:1
+Workflow:0
+Position
+{
+Height:600
+Left:126
+Top:162
+Width:800
+}
+Events
+{
+Def:""
+OnLoad:""
+}
+@
+{
+EasyScript
+{
+Caption:设置页面参数
+Code:"me.PageParam.IsOrg = true;
+me.PageParam.IsShare = false;
+me.PageParam.UserID = 0;
+me.PageParam.DocID = int(me._vo.id);
+me.PageParam.DocCat = \"单位文档\";"
+CodeType:load
+Name:EasyScript2
+Position
+{
+Height:20
+Left:4
+Top:-38
+Width:80
+}
+}
+UserControl
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:UserControl1
+PathName:"/doc/list.ui"
+Visible:1
+Position
+{
+Height:100
+Left:58
+Top:42
+Width:100
+}
+}
+}
+}

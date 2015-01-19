@@ -1,0 +1,899 @@
+BjPage
+{
+AdjustFrame:0
+BeforeCreate:""
+BodyProp:""
+BootstrapVer:2
+Caption:BaijieOA登录
+Enabled:1
+Name:BjPage1
+PageID:""
+ParenClass:""
+Visible:1
+Workflow:0
+Position
+{
+Height:1300
+Left:44
+Top:59
+Width:1000
+}
+Events
+{
+Def:"public var ErrorText=\"\";"
+OnLoad:"
+var cc = me._vo.cc;
+var user = me._vo.user;
+var pwd = me._vo.pwd;
+if( cc <> \"\" && user <> \"\" && pwd <> \"\" )
+{
+	AutoLogin(cc,user,pwd);
+}"
+}
+@
+{
+BjLayoutRow
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:BjLayoutRow1
+RowType:fluit
+Visible:1
+Position
+{
+Height:1247
+Left:28
+Top:22
+Width:940
+}
+@
+{
+BjLayoutColumn
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:BjLayoutColumn1
+Offset:none
+Visible:1
+Wide:1
+Position
+{
+Height:590
+Left:10
+Top:15
+Width:56
+}
+}
+BjLayoutColumn
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:BjLayoutColumn2
+Offset:none
+Visible:1
+Wide:10
+Position
+{
+Height:1190
+Left:80
+Top:15
+Width:788
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"text-align:center;margin-top:50px;margin-bottom:30px\""
+ID:""
+Name:Box1
+TagName:""
+Visible:1
+Position
+{
+Height:88
+Left:13
+Top:11
+Width:736
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"margin-left:auto;margin-right:auto\""
+ID:""
+Name:Box2
+TagName:""
+Visible:1
+Position
+{
+Height:62
+Left:194
+Top:13
+Width:227
+}
+@
+{
+html_image
+{
+BeforeCreate:""
+Caption:"baijieoa system"
+Enabled:1
+ExtProp:""
+Name:html_image_1
+Visible:1
+src:"<% echo(FixUrl(\"/images/baijieoasystem.png\")); %>"
+Position
+{
+Height:30
+Left:48
+Top:13
+Width:74
+}
+}
+}
+}
+}
+}
+BjLayoutRow
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:BjLayoutRow2
+RowType:fluit
+Visible:1
+Position
+{
+Height:581
+Left:13
+Top:130
+Width:736
+}
+@
+{
+BjLayoutColumn
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:BjLayoutColumn4
+Offset:none
+Visible:1
+Wide:7
+Position
+{
+Height:171
+Left:26
+Top:16
+Width:216
+}
+@
+{
+html_image
+{
+BeforeCreate:""
+Caption:品质
+Enabled:1
+ExtProp:"style=\"width:100%;height:100%\""
+Name:html_image_2
+Visible:1
+src:"<% echo(FixUrl(\"/images/loginleft.png\")); %>"
+Position
+{
+Height:100
+Left:32
+Top:28
+Width:100
+}
+}
+}
+}
+BjLayoutColumn
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:BjLayoutColumn5
+Offset:none
+Visible:1
+Wide:5
+Position
+{
+Height:545
+Left:260
+Top:16
+Width:446
+}
+@
+{
+BjSubmitArea
+{
+Action:""
+BeforeCreate:""
+Caption:""
+ExtProp:""
+FileUpload:0
+Horz:0
+ID:""
+Inline:0
+Method:post
+Name:BjSubmitArea1
+Search:0
+Position
+{
+Height:515
+Left:7
+Top:13
+Width:427
+}
+@
+{
+BjWell
+{
+BeforeCreate:""
+ExtProp:""
+Name:BjWell1
+Size:middle
+Position
+{
+Height:472
+Left:13
+Top:15
+Width:391
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"text-align:center;margin-left:auto;margin-right:auto\""
+ID:""
+Name:Box4
+TagName:""
+Visible:1
+Position
+{
+Height:461
+Left:23
+Top:17
+Width:335
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"text-align:left\""
+ID:""
+Name:Box5
+TagName:""
+Visible:1
+Position
+{
+Height:433
+Left:15
+Top:15
+Width:298
+}
+@
+{
+Html
+{
+BeforeCreate:""
+Caption:用户登录
+Code:"<h4>用户登录</h4>"
+Name:Html1
+Position
+{
+Height:20
+Left:40
+Top:11
+Width:80
+}
+}
+ConditionControl
+{
+Action:hascc
+BeforeCreate:"var hascc = false;
+if( me._vo.cc <> \"\" ) hascc = true;
+else
+{
+	var str = (new website()).bustable;
+	if( str <> \"\" ) hascc = true;
+}"
+Method:if
+Name:ConditionControl2
+Position
+{
+Height:52
+Left:37
+Top:41
+Width:215
+}
+@
+{
+BjEdit
+{
+BeforeCreate:""
+Caption:企业或组织：
+Enabled:1
+ID:""
+Inline:0
+IsMultiline:0
+IsPassword:0
+Name:cc
+PlaceHolder:""
+Search:0
+Size:none
+Value:""
+Visible:1
+Wide:none
+cols:0
+rows:0
+Position
+{
+Height:20
+Left:69
+Top:15
+Width:80
+}
+InfoStatus
+{
+Condition:""
+Text:""
+}
+WarnStatus
+{
+Condition:""
+Text:""
+}
+ErrorStatus
+{
+Condition:""
+Text:""
+}
+SuccessStatus
+{
+Condition:""
+Text:""
+}
+Events
+{
+OnSearch:""
+}
+Validate
+{
+DisplayName:""
+Format:""
+MaxLength:0
+MustFill:0
+}
+}
+}
+}
+BjEdit
+{
+BeforeCreate:""
+Caption:帐号：
+Enabled:1
+ID:""
+Inline:0
+IsMultiline:0
+IsPassword:0
+Name:username
+PlaceHolder:""
+Search:0
+Size:none
+Value:"<% echo(me._vo.username); %>"
+Visible:1
+Wide:none
+cols:0
+rows:0
+Position
+{
+Height:20
+Left:77
+Top:105
+Width:80
+}
+InfoStatus
+{
+Condition:""
+Text:""
+}
+WarnStatus
+{
+Condition:""
+Text:""
+}
+ErrorStatus
+{
+Condition:""
+Text:""
+}
+SuccessStatus
+{
+Condition:""
+Text:""
+}
+Events
+{
+OnSearch:""
+}
+Validate
+{
+DisplayName:""
+Format:""
+MaxLength:0
+MustFill:0
+}
+}
+BjEdit
+{
+BeforeCreate:""
+Caption:密码：
+Enabled:1
+ID:""
+Inline:0
+IsMultiline:0
+IsPassword:1
+Name:password
+PlaceHolder:""
+Search:0
+Size:none
+Value:"<% echo(me._vo.password); %>"
+Visible:1
+Wide:none
+cols:0
+rows:0
+Position
+{
+Height:20
+Left:77
+Top:135
+Width:80
+}
+InfoStatus
+{
+Condition:""
+Text:""
+}
+WarnStatus
+{
+Condition:""
+Text:""
+}
+ErrorStatus
+{
+Condition:""
+Text:""
+}
+SuccessStatus
+{
+Condition:""
+Text:""
+}
+Events
+{
+OnSearch:""
+}
+Validate
+{
+DisplayName:""
+Format:""
+MaxLength:0
+MustFill:0
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"margin-bottom:5px\""
+ID:""
+Name:Box3
+TagName:""
+Visible:1
+Position
+{
+Height:47
+Left:29
+Top:199
+Width:258
+}
+@
+{
+BjButton
+{
+BeforeCreate:""
+Block:0
+ButtonType:submit
+Caption:登录
+Enabled:1
+Feedback:primary
+ID:""
+Inline:1
+Name:BjButton1
+Size:default
+URL:""
+URLParam:""
+Visible:1
+Position
+{
+Height:20
+Left:11
+Top:13
+Width:80
+}
+Events
+{
+OnClick:"
+var cc = me._vo.cc;
+var dbserver =\"\";
+var dbuser = \"\";
+var dbpwd = \"\";
+var database = \"\";
+	
+if( cc <> \"\" )
+{
+	var oCustom = (new dao.table(\"t_custom\")).Single(\"where CustomCode=?\",cc);
+	if( oCustom == null ) throw \"公司编码错误\";
+	dbserver = oCustom.dbserver;
+	dbuser = oCustom.dbuser;
+	dbpwd = oCustom.dbpassword;
+	database = oCustom.database;
+	
+	//重载数据库连接
+	var _Conn = new dao.connection(\"mysql\",dbserver,database,dbuser,dbpwd,0);//暂时未使用port参数
+	context.Connection = _Conn;
+}
+
+var oUser =  modulecall(\"模型.组织.用户.CanLogin\",me._vo.username,me._vo.password);
+if( oUser <> null )
+{
+	modulecall(\"模型.运行时.会话.创建会话\",oUser);
+	
+	var oSession = new session();
+	oSession[\"cc\"] = cc;
+	oSession[\"dbserver\"] = dbserver;
+	oSession[\"dbuser\"] = dbuser;
+	oSession[\"dbpwd\"] = dbpwd;
+	oSession[\"database\"] = database;
+	
+	生成一级菜单();
+	生成二级菜单();
+		
+	redirect(\"main/mydesk.esh\");
+}
+
+
+this.ErrorText = \"帐号或密码错，请再试一次！\";"
+OnClientClick:""
+}
+}
+}
+}
+ConditionControl
+{
+Action:"ErrorText <> \"\""
+BeforeCreate:""
+Method:if
+Name:ConditionControl1
+Position
+{
+Height:80
+Left:29
+Top:273
+Width:200
+}
+@
+{
+BjAlertBox
+{
+BeforeCreate:""
+CanClose:1
+Caption:"<% echo(this.ErrorText); %>"
+Enabled:1
+ID:""
+Level:error
+Multi:1
+Name:BjAlertBox1
+Visible:1
+Position
+{
+Height:39
+Left:8
+Top:18
+Width:107
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"border-top:1px solid RGB(164,164,164);padding-top:5px;margin-top:30px\""
+ID:""
+Name:Box6
+TagName:""
+Visible:1
+Position
+{
+Height:148
+Left:15
+Top:777
+Width:736
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"float:left;color:RGB(120,120,120)\""
+ID:""
+Name:Box7
+TagName:""
+Visible:1
+Position
+{
+Height:112
+Left:16
+Top:13
+Width:244
+}
+@
+{
+Html
+{
+BeforeCreate:""
+Caption:"百捷 版权所有"
+Code:"广州百捷网络科技有限公司版权所有 (c)2014 <a href=\"http://www.baijienet.com\">www.baijienet.com</a>"
+Name:Html2
+Position
+{
+Height:20
+Left:27
+Top:45
+Width:80
+}
+}
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"float:right;text-align:right;color:RGB(120,120,120)\""
+ID:""
+Name:Box8
+TagName:""
+Visible:1
+Position
+{
+Height:100
+Left:303
+Top:13
+Width:391
+}
+@
+{
+Html
+{
+BeforeCreate:""
+Caption:"百捷官网 设为首页"
+Code:"<span>
+<a href=\"http://www.baijienet.com\">百捷官网</a>
+</span>
+
+<span style=\"margin-left:5px\">|
+</span>
+
+<span style=\"margin-left:5px\">
+
+<a href=\"#\" style=\"cursor:hand\" onclick=\"this.style.behavior='url(#default#homepage)'; this.setHomePage('www.baijienet.com');\"> 
+设为首页</a>
+</span>
+
+<span style=\"margin-left:5px\">|
+</span>
+
+<span style=\"margin-left:5px\">
+
+<a href=\"javascript:\" onClick=\"jscript:window.external.AddFavorite(document.location.href,document.title);\">收藏本页</a>
+</span>
+
+<span style=\"margin-left:5px\">|
+</span>
+
+<span style=\"margin-left:5px\">
+
+<a href=\"weihu\">系统维护</a>
+</span>"
+Name:Html3
+Position
+{
+Height:20
+Left:65
+Top:25
+Width:139
+}
+}
+}
+}
+}
+}
+}
+}
+BjLayoutColumn
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:BjLayoutColumn3
+Offset:none
+Visible:1
+Wide:1
+Position
+{
+Height:590
+Left:882
+Top:15
+Width:39
+}
+}
+}
+}
+EasyScript
+{
+Caption:autologin
+Code:"public function AutoLogin(var cc,var user,var pwd)//for demo
+{
+	//如果有session（常见于同一个电脑同一个浏览器频繁切换不同身份时会留有Session）
+	var oSession = new session();
+	if( oSession.ID <> \"\" )
+	{
+		oSession[\"cc\"] = \"\";//清空，确保dao使用缺省数据库
+	}
+	var oCustom = (new dao.table(\"t_custom\")).Single(\"where CustomCode=?\",cc);
+	if( oCustom == null ) throw \"公司编码错误\";
+	var dbserver = oCustom.dbserver;
+	var dbuser = oCustom.dbuser;
+	var dbpwd = oCustom.dbpassword;
+	var database = oCustom.database;
+	
+	//重载数据库连接
+	var _Conn = new dao.connection(\"mysql\",dbserver,database,dbuser,dbpwd,0);//暂时未使用port参数
+	context.Connection = _Conn;
+	
+	var oUser =  modulecall(\"模型.组织.用户.CanLogin\",user,pwd);
+	if( oUser <> null )
+	{
+		modulecall(\"模型.运行时.会话.创建会话\",oUser);
+		var oSession = new session();
+		oSession[\"cc\"] = cc;
+		oSession[\"dbserver\"] = dbserver;
+		oSession[\"dbuser\"] = dbuser;
+		oSession[\"dbpwd\"] = dbpwd;
+		oSession[\"database\"] = database;
+		
+		//缺省打开所有顶级功能，防止部分客户以为只有一个功能模块。
+		生成一级菜单();
+		生成二级菜单();
+	
+		redirect(\"main/mydesk.esh\");
+	}
+
+
+	throw \"帐号或密码错，请再试一次！\";
+}"
+CodeType:server
+Name:EasyScript1
+Position
+{
+Height:20
+Left:0
+Top:-34
+Width:80
+}
+}
+EasyScript
+{
+Caption:生成二级菜单代码
+Code:"public function 生成一级菜单()
+{
+	var oSession = me.会话._Session;
+	var aTop = (new dao.table(\"t_sysfunc\")).Query(\"select id,name,displayname,url from t_sysfunc where pid=0 order by displayorder\");
+	var oNode = new node();
+	oNode.SetName(\"m\");
+	oNode.n = \"topfunc\";
+	each(a,aTop)
+	{
+		var n = new node();
+		n.SetName(\"m\");
+		n.n = a.name;
+		n.d = (\"\" == string(a.displayname) ? string(a.name) : string(a.displayname));
+		n.u = (a.url);
+		oNode.Add( n );
+	}
+	oSession[\"topfunc\"] = string(oNode);
+}
+
+public function 生成二级菜单()
+{
+	var oSession = me.会话._Session;
+	var aTop = (new dao.table(\"t_sysfunc\")).Query(\"select id,name,displayname,url from t_sysfunc where pid=0 order by displayorder\");
+	each(a,aTop)
+	{
+		var oNode = Menu2Node(a.id,a.name,a.displayname,a.url);
+		oSession[ \"menu\"+a.name ] = string(oNode);
+	}
+}
+
+public function Menu2Node(var pid,var sMenu,var sDisp,var url)
+{
+
+	var oNode = new node();
+	oNode.SetName(\"m\");
+	oNode.n = sMenu;
+	oNode.d = (\"\"==sDisp?sMenu:sDisp);
+	oNode.u = (url);
+
+
+	var aChild = (new dao.table(\"t_sysfunc\")).Query(\"select id,name,displayname,url from t_sysfunc where pid=? order by displayorder\",pid);
+	each(a,aChild)
+	{
+		oNode.Add( Menu2Node(a.id,a.name,a.displayname,a.url) );
+	}
+	return oNode;
+}"
+CodeType:server
+Name:EasyScript3
+Position
+{
+Height:20
+Left:99
+Top:-32
+Width:80
+}
+}
+}
+}

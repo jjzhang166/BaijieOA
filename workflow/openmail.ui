@@ -1,0 +1,47 @@
+BjPage
+{
+AdjustFrame:0
+BeforeCreate:""
+BodyProp:""
+BootstrapVer:2
+Caption:""
+Enabled:1
+Name:BjPage1
+PageID:FP6108079EA0D1490914A724797201CB8B
+ParenClass:""
+Visible:1
+Workflow:0
+Position
+{
+Height:600
+Left:94
+Top:68
+Width:800
+}
+Events
+{
+Def:""
+OnLoad:""
+}
+@
+{
+EasyScript
+{
+Caption:""
+Code:"var mailid=me._vo.id;
+var oMail = (new dao.table(\"t_wf_job\")).Single(\"where id=?\",mailid);
+if( null == oMail )
+	oMail = (new dao.table(\"t_wf_job_his\")).Single(\"where id=?\",mailid);
+redirect(FixUrl(\"/startapp.esh?wf_app=\"+oMail.appname+\"&wf_jobid=\"+oMail.id));"
+CodeType:load
+Name:EasyScript1
+Position
+{
+Height:20
+Left:80
+Top:42
+Width:80
+}
+}
+}
+}

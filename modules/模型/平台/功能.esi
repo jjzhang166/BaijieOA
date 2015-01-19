@@ -1,0 +1,134 @@
+public const 表名 = "t_sysfunc";
+
+public function LoadByID(var id)
+{
+	var oRecord = (new dao.table(表名)).Single("where id=?",id);
+	return (oRecord);
+}
+
+public function LoadByName(var sName)
+{
+	var oRecord = (new dao.table(表名)).Single("where name=?",string(sName));
+	return (oRecord);
+}
+
+public function GetParent(var oModel)
+{
+	return LoadByID( oModel.pid );
+}
+
+public function GetChildren(var oModel)
+{
+	var arr = (new dao.table(表名)).Query("where pid=?",int(oModel == null ? 0 : oModel.id));
+	return arr;
+}
+
+public function 得到角色的功能(var oRole)
+{
+
+	var arr = (new dao.table("t_role_func")).Query("where roleid=?",int(oRole.id));
+	var ret = [];
+	each(a,arr)
+	{
+	
+		var oFunc = LoadByID( a.funcid );
+		if( oFunc <> null )
+		{
+			var b = false;
+			each(x,ret)
+			{
+				if( x.id == oFunc.id )
+				{
+					b = true;
+					break;
+				}
+			}
+			if( !b )
+			{
+				
+				ret.Add( oFunc );
+			}
+		}
+	}
+	return ret;
+}
+
+public function 得到用户的功能(var oUser)
+{
+	var allRole = modulecall("模型.组织.角色.GetUserRoles",oUser);
+	var ret=[];
+	each(oRole,allRole)
+	{
+		var aFunc = 得到角色的功能(oRole);
+		
+		each(x,aFunc)
+		{
+			var b = false;
+			each(y,ret)
+			{
+				if( x.id == y.id )
+				{
+					b = true;
+					break;
+				}
+			}
+			if( !b ) ret.Add(x);
+		}
+	}
+	return ret;
+}
+
+public function 得到用户的一级功能(var oUser)
+{
+	var allRole = modulecall("模型.组织.角色.操作.GetUserRoles",oUser);
+	var ret=[];
+	each(oRole,allRole)
+	{
+		var aFunc = 得到角色的功能(oRole);
+		
+		each(x,aFunc)
+		{
+			if( x.pid == 0 )
+			{
+				var b = false;
+				each(y,ret)
+				{
+					if( x.id == y.id )
+					{
+						b = true;
+						break;
+					}
+				}
+				if( !b ) ret.Add(x);
+			}
+		}
+	}
+	return ret;
+}
+
+public function 得到角色集的一级功能(var allRole)
+{
+	var ret=[];
+	each(oRole,allRole)
+	{
+		var aFunc = 得到角色的功能(oRole);
+		
+		each(x,aFunc)
+		{
+			if( x.pid == 0 )
+			{
+				var b = false;
+				each(y,ret)
+				{
+					if( x.id == y.id )
+					{
+						b = true;
+						break;
+					}
+				}
+				if( !b ) ret.Add(x);
+			}
+		}
+	}
+	return ret;
+}

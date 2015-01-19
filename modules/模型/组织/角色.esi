@@ -1,0 +1,94 @@
+public const 表名 = "t_role";
+
+public class 角色类型
+{
+	public const 群组	= 0;
+	public const 部门	= 1;
+	public const 表达式	= 2;
+
+	public static function Text(var roletype)
+	{
+		var a=["群组","组织","动态"];
+		return a[ int(roletype) ];
+	}
+}
+
+public function LoadByID(var id)
+{
+	var oRecord = (new dao.table(表名)).Single("where isdeleted=0 and id=?",int(id));
+	return (oRecord);
+}
+public function LoadCode(var oRole)
+{
+	var rs = (new dao.table(表名)).Single("select code from "+表名+" where isdeleted=0 and id=?",int(oRole.id));
+	if( rs <> null ) oRole.code = rs.code;
+}
+
+public function LoadAll()
+{
+	var aRole = (new dao.table(表名)).Query("where isdeleted=0");
+	return aRole;
+}
+
+//得到角色所包含的用户
+public function LoadRoleUsers(var oRole)
+{
+	//(new log()).Infor("enter LadRoleUsers,role.Type="+oRole.roletype);
+	var aUser = [];
+	if( oRole <> null )
+	{
+		//先处理群组类型的角色
+		switch( oRole.roletype )
+		{
+			case 角色类型.群组 :
+			{
+				//(new log()).Infor("is group role...");
+				var rs = (new dao.table("t_user") ).Query("where id in (select userid from t_role_user where roleid=?)",
+					int(oRole.id));
+				aUser = rs;
+				//(new log()).Infor("usercount="+aUser.Count);
+			}
+			case 角色类型.部门:
+			{
+				var oUnit = modulecall("模型.组织.部门.LoadByID",oRole.unitid);
+				if( oUnit <> null )
+				{
+					var unitUsers = modulecall("模型.组织.部门.LoadUsers",oUnit);
+					aUser = unitUsers;
+				}
+			}
+			case 角色类型.表达式:
+			{
+				if( oRole.code == "" ) LoadCode(oRole);
+				var aRet = [];
+				if( argc > 1 ) aRet = dynamiccall("/role."+oRole.name,"main",argv(1));
+				else aRet = dynamiccall("/role."+oRole.name,"main");
+				aUser = aRet;
+			}
+		}
+	}
+	return aUser;
+}
+
+//得到用户所属的角色
+public function GetUserRoles(var oUser)
+{
+	//(new log()).Infor("enter GetUserRoles...oUser.ID="+oUser.ID);
+	var ret=[];
+	var allRole = LoadAll();
+	each(oRole,allRole)
+	{
+		var allUser = LoadRoleUsers(oRole);
+		//(new log()).Infor("role "+oRole.id+" type:"+oRole.roletype+"  has users:"+allUser.Count);
+		each(u,allUser)
+		{
+			//(new log()).Infor("find one role user:"+u.ID);
+			if( u.id == oUser.id )
+			{
+				ret.Add( oRole );
+			}
+		}
+	}
+	return ret;
+}
+

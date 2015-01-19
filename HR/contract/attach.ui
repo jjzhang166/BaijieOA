@@ -1,0 +1,28 @@
+ServicePage
+{
+Code:"<%
+var id = int( (new vo()).id );
+var index = int( (new vo()).i);
+var str = \"\";
+if( index == 1 ) str = \"attach1\";
+else if( index == 2 ) str = \"attach2\";
+else str = \"attach3\";
+
+var obj = (new dao.table(\"t_hr_contract\")).Single(\"select \"+str+\" from t_hr_contract where id=?\",id);
+var path = prop(obj,str);
+
+var webpath = (new website()).attachpath;
+if( webpath.Right(1) == \"\\\" ) webpath = webpath.Left(webpath.Length-1);
+path = webpath + path;
+(new response()).SendFile(path);
+%>"
+Name:ServicePage1
+PageID:FPC3356AE2F2114F32E1AA9B86B0813796
+Position
+{
+Height:80
+Left:135
+Top:121
+Width:100
+}
+}

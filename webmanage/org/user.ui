@@ -1,0 +1,979 @@
+BjPage
+{
+AdjustFrame:0
+BeforeCreate:""
+BodyProp:""
+BootstrapVer:2
+Caption:用户设置
+Enabled:1
+Name:BjPage1
+PageID:""
+ParenClass:""
+Visible:1
+Workflow:""
+Position
+{
+Height:1100
+Left:59
+Top:62
+Width:1100
+}
+Events
+{
+Def:""
+OnLoad:""
+}
+@
+{
+EasyScript
+{
+Caption:设置二级菜单
+Code:"me.ControlProp[\"二级菜单/Active\"] = \"用户设置\";"
+CodeType:load
+Name:EasyScript1
+Position
+{
+Height:20
+Left:4
+Top:-32
+Width:80
+}
+}
+UserControl
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:UserControl1
+PathName:"/template/webmanagetemp.ui"
+Visible:1
+Position
+{
+Height:1007
+Left:30
+Top:38
+Width:1031
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:""
+ID:""
+Name:SettingClient
+TagName:""
+Visible:1
+Position
+{
+Height:955
+Left:20
+Top:22
+Width:978
+}
+@
+{
+BjBreadcrumbNav
+{
+BeforeCreate:""
+ExtProp:""
+Name:BjBreadcrumbNav1
+Position
+{
+Height:52
+Left:20
+Top:21
+Width:436
+}
+@
+{
+BjBreadcrumb
+{
+Active:""
+BeforeCreate:""
+Caption:当前位置：
+Divider:""
+Enabled:1
+Name:BjBreadcrumb1
+Visible:1
+href:""
+Position
+{
+Height:20
+Left:16
+Top:18
+Width:80
+}
+}
+BjBreadcrumb
+{
+Active:""
+BeforeCreate:""
+Caption:系统设置
+Divider:"/"
+Enabled:1
+Name:BjBreadcrumb2
+Visible:1
+href:"<%echo(FixUrl(\"/webmanage/main.esh\"));%>"
+Position
+{
+Height:20
+Left:106
+Top:18
+Width:80
+}
+}
+BjBreadcrumb
+{
+Active:""
+BeforeCreate:""
+Caption:用户设置
+Divider:""
+Enabled:1
+Name:BjBreadcrumb3
+Visible:1
+href:""
+Position
+{
+Height:20
+Left:202
+Top:18
+Width:80
+}
+}
+}
+}
+BjLayoutRow
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:BjLayoutRow1
+RowType:fluit
+Visible:1
+Position
+{
+Height:788
+Left:20
+Top:111
+Width:936
+}
+@
+{
+BjLayoutColumn
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:BjLayoutColumn1
+Offset:none
+Visible:1
+Wide:4
+Position
+{
+Height:291
+Left:16
+Top:17
+Width:884
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"class=\"panel\""
+ID:""
+Name:Box2
+TagName:""
+Visible:1
+Position
+{
+Height:263
+Left:11
+Top:11
+Width:669
+}
+@
+{
+BjBreadcrumbNav
+{
+BeforeCreate:""
+ExtProp:""
+Name:BjBreadcrumbNav1
+Position
+{
+Height:61
+Left:18
+Top:11
+Width:627
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:部门级别：
+Enabled:1
+ExtProp:""
+ID:""
+Name:Box1
+TagName:span
+Visible:1
+Position
+{
+Height:43
+Left:11
+Top:10
+Width:70
+}
+}
+EasyScript
+{
+Caption:计算路径
+Code:"var UnitPath = modulecall(\"模型.组织.部门.GetUnitPath\",me.PageParam.当前部门ID);
+var UnitCount = UnitPath.Count;"
+CodeType:ember
+Name:EasyScript2
+Position
+{
+Height:43
+Left:99
+Top:10
+Width:80
+}
+}
+ConditionControl
+{
+Action:"var i=UnitCount-1;i >= 0 ;i--"
+BeforeCreate:""
+Method:for
+Name:ConditionControl1
+Position
+{
+Height:43
+Left:194
+Top:10
+Width:293
+}
+@
+{
+BjBreadcrumb
+{
+Active:"i == UnitCount-1"
+BeforeCreate:""
+Caption:<%echo(UnitPath[i][0]);%>
+Divider:"/"
+Enabled:1
+Name:BjBreadcrumb1
+Visible:1
+href:user.esh?id=<%echo(UnitPath[i][1]);%>
+Position
+{
+Height:25
+Left:17
+Top:10
+Width:246
+}
+}
+}
+}
+}
+}
+BjDataGrid
+{
+BeforeCreate:"
+if( int(me._vo.isdelete) == 1 )
+{
+	(new dao.table(\"t_unit\")).Delete(\"id\",me._vo.id);
+}
+"
+Caption:子部门：
+DeleteUrl:unit.esh
+DellHint:确定删除选定的项？
+EditUrl:unit_edit.esh
+Enabled:1
+MaxPage:9
+Name:t_unit
+PageSize:10
+URLParam:""
+URLParamDel:isdelete=1
+UsePager:1
+Visible:1
+Position
+{
+Height:112
+Left:18
+Top:88
+UseHeight:0
+UseWidth:0
+Width:627
+}
+Events
+{
+CanDelete:"return false;"
+CanEdit:"return false;"
+CanSelect:"return false;"
+OnGetData:"
+//当前页
+var iCurPage = int(_CurPage);
+
+if( iCurPage > int(_TotalPage) )
+	iCurPage = int(_TotalPage);
+
+
+//每页记录数
+var iPageSize = int(_PageSize);
+
+if( iPageSize < 1 )
+	iPageSize = 1;
+
+
+//开始记录数
+var iStart = 1;
+if( iCurPage > 1 )
+	iStart = (iCurPage-1) * iPageSize;
+
+
+if( iStart > 0 )
+	iStart--;
+
+
+
+//当前页数据
+var datas = null;
+
+datas= (new dao.table(\"t_unit\")).Query(
+				\"where isdeleted=0 and pid=? limit \"+iStart+\",\"+iPageSize,
+				int(me._vo.id)
+				);
+each(a,datas)
+{
+	a.unittype = staticcall(\"模型.组织.部门.部门类型.Text\",a.unittype);
+}
+return datas;
+"
+OnGetTotalPage:"
+//总记录数
+var total= (new dao.table(\"t_unit\")).Single(\"select count(*) as c from t_unit where isdeleted=0 and pid=?\",int(me._vo.id) ).c;
+
+//每页大小
+var iPageSize = _PageSize;
+if( iPageSize < 1 )
+	iPageSize = 1;
+
+
+//总页数
+var _TotalPage = int(total) + int(iPageSize) -1;
+_TotalPage = _TotalPage / int(iPageSize);
+
+return _TotalPage;
+"
+}
+@
+{
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:"#"
+Enabled:1
+Field:""
+IsKey:0
+IsOperator:0
+IsSerial:1
+Name:""
+StaticUrl:0
+ViewUrl:""
+Visible:1
+Position
+{
+Height:20
+Left:10
+Top:10
+Width:20
+}
+}
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:id
+Enabled:1
+Field:id
+IsKey:1
+IsOperator:0
+IsSerial:0
+Name:id
+StaticUrl:0
+ViewUrl:""
+Visible:0
+Position
+{
+Height:20
+Left:70
+Top:10
+Width:78
+}
+}
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:部门类型
+Enabled:1
+Field:unittype
+IsKey:0
+IsOperator:0
+IsSerial:0
+Name:unittype
+StaticUrl:0
+ViewUrl:""
+Visible:1
+Position
+{
+Height:20
+Left:164
+Top:10
+Width:78
+}
+}
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:1
+Caption:名称
+Enabled:1
+Field:name
+IsKey:0
+IsOperator:0
+IsSerial:0
+Name:name
+StaticUrl:0
+ViewUrl:user.esh
+Visible:1
+Position
+{
+Height:20
+Left:262
+Top:10
+Width:78
+}
+}
+}
+}
+}
+}
+}
+}
+BjLayoutColumn
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:BjLayoutColumn2
+Offset:none
+Visible:1
+Wide:8
+Position
+{
+Height:442
+Left:14
+Top:325
+Width:884
+}
+@
+{
+BjSubmitArea
+{
+Action:""
+BeforeCreate:""
+Caption:""
+FileUpload:0
+Horz:0
+ID:""
+Inline:0
+Method:post
+Name:BjSubmitArea1
+Search:0
+Position
+{
+Height:414
+Left:13
+Top:19
+Width:737
+}
+@
+{
+BjEdit
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+ID:""
+Inline:0
+IsMultiline:0
+IsPassword:0
+Name:id
+PlaceHolder:""
+Search:0
+Size:none
+Value:"<% echo(me._vo.id); %>"
+Visible:0
+Wide:none
+cols:""
+rows:""
+Position
+{
+Height:20
+Left:18
+Top:370
+Width:80
+}
+InfoStatus
+{
+Condition:""
+Text:""
+}
+WarnStatus
+{
+Condition:""
+Text:""
+}
+ErrorStatus
+{
+Condition:""
+Text:""
+}
+SuccessStatus
+{
+Condition:""
+Text:""
+}
+Events
+{
+OnSearch:""
+}
+Validate
+{
+DisplayName:""
+Format:""
+MaxLength:0
+MustFill:0
+}
+}
+BjWell
+{
+BeforeCreate:""
+ExtProp:""
+Name:BjWell1
+Size:middle
+Position
+{
+Height:317
+Left:21
+Top:31
+Width:654
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"margin-bottom:10px\""
+ID:""
+Name:Box3
+TagName:""
+Visible:1
+Position
+{
+Height:200
+Left:24
+Top:13
+Width:600
+}
+@
+{
+BjButton
+{
+BeforeCreate:""
+Block:0
+ButtonType:link
+Caption:添加
+Enabled:1
+Feedback:primary
+ID:""
+Inline:1
+Name:t_userAdd
+Size:default
+URL:user_add.esh
+URLParam:id=<%echo(me._vo.id);%>
+Visible:1
+Position
+{
+Height:20
+Left:20
+Top:20
+Width:80
+}
+Events
+{
+OnClick:""
+OnClientClick:""
+}
+}
+BjCombo
+{
+BeforeCreate:"var 主管职位列表=[{\"k\":\"<取消设置>\",\"v\":\"<取消设置>\"}];
+{
+	var all = (new dao.table(\"t_unit_leader_type\")).Query(\"where 1=1 order by orderno\");
+	each(a,all)
+	{
+		主管职位列表.Add({
+			\"k\":a.name,
+			\"v\":a.name
+		});
+	}
+}"
+CanEdit:0
+Caption:""
+ChoiceObject:主管职位列表
+Choices:""
+Enabled:1
+Multi:0
+Name:主管
+Pill:0
+Value:""
+Visible:1
+Position
+{
+Height:20
+Left:117
+Top:20
+Width:80
+}
+Events
+{
+OnSelect:""
+}
+}
+BjButton
+{
+BeforeCreate:""
+Block:0
+ButtonType:submit
+Caption:主管设置
+Enabled:1
+Feedback:none
+ID:""
+Inline:1
+Name:主管设置
+Size:default
+URL:""
+URLParam:""
+Visible:1
+Position
+{
+Height:20
+Left:208
+Top:20
+Width:80
+}
+Events
+{
+OnClick:"using( new dao.ConnTrans() )
+{
+	
+	if( me._vo.主管 == \"<取消设置>\" )
+	{
+		var aSelected = new grid.Selected(\"userlist\");
+		each(a,aSelected.Values())
+		{
+			(new dao.table(\"t_unit_leader\")).Delete(\"unitid\",int(me._vo.id),\"userid\",int(a));
+		}
+	}
+	else
+	{
+		(new dao.table(\"t_unit_leader\")).Delete(\"unitid\",int(me._vo.id),\"leadtype\",me._vo.主管);
+		var aSelected = new grid.Selected(\"userlist\");
+		each(a,aSelected.Values())
+		{
+			(new dao.table(\"t_unit_leader\")).Delete(\"unitid\",int(me._vo.id),\"userid\",int(a));
+			
+			(new dao.table(\"t_unit_leader\")).Add({
+				\"unitid\" : int(me._vo.id),
+				\"userid\" : int(a),
+				\"leadtype\":me._vo.主管
+			});
+		}
+	}
+}"
+OnClientClick:""
+}
+}
+}
+}
+BjDataGrid
+{
+BeforeCreate:"
+if( int(me._vo.isdelete) == 1 )
+{
+	(new dao.table(\"t_user\")).Delete(\"id\",me._vo.id);
+}
+"
+Caption:用户列表
+DeleteUrl:user.esh
+DellHint:确定删除选定的项？
+EditUrl:user_edit.esh
+Enabled:1
+MaxPage:9
+Name:userlist
+PageSize:10
+URLParam:unitid=<%echo(me._vo.id);%>
+URLParamDel:isdelete=1
+UsePager:1
+Visible:1
+Position
+{
+Height:71
+Left:16
+Top:238
+UseHeight:0
+UseWidth:0
+Width:600
+}
+Events
+{
+CanDelete:"return true;"
+CanEdit:"return true;"
+CanSelect:"return true;"
+OnGetData:"
+//当前页
+var iCurPage = int(_CurPage);
+
+if( iCurPage > int(_TotalPage) )
+	iCurPage = int(_TotalPage);
+
+
+//每页记录数
+var iPageSize = int(_PageSize);
+
+if( iPageSize < 1 )
+	iPageSize = 1;
+
+
+//开始记录数
+var iStart = 1;
+if( iCurPage > 1 )
+	iStart = (iCurPage-1) * iPageSize;
+
+
+if( iStart > 0 )
+	iStart--;
+
+
+
+//当前页数据
+var datas = null;
+var unitid = int(me._vo.id);
+
+var leaders = (new dao.table(\"t_unit_leader\")).Query(\"where unitid=?\",unitid);
+
+datas= (new dao.table(\"t_user\")).Query(
+				\"select id,loginname,alias,b.leadtype as leader from t_user a left join t_unit_leader b on (a.id = b.userid and b.unitid=?) where id in (select userid from t_unit_user where unitid=?) limit \"+iStart+\",\"+iPageSize,
+				unitid,
+				unitid
+				);
+
+return datas;
+"
+OnGetTotalPage:"
+//总记录数
+var total= (new dao.table(\"t_user\")).Single(\"select count(*) as c from t_user where id in (select userid from t_unit_user where unitid=?)\",int(me._vo.id) ).c;
+
+//每页大小
+var iPageSize = _PageSize;
+if( iPageSize < 1 )
+	iPageSize = 1;
+
+
+//总页数
+var _TotalPage = int(total) + int(iPageSize) -1;
+_TotalPage = _TotalPage / int(iPageSize);
+
+return _TotalPage;
+"
+}
+@
+{
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:"#"
+Enabled:1
+Field:""
+IsKey:0
+IsOperator:0
+IsSerial:1
+Name:""
+StaticUrl:0
+ViewUrl:""
+Visible:1
+Position
+{
+Height:20
+Left:10
+Top:10
+Width:20
+}
+}
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:""
+Enabled:1
+Field:""
+IsKey:0
+IsOperator:1
+IsSerial:0
+Name:""
+StaticUrl:0
+ViewUrl:""
+Visible:1
+Position
+{
+Height:20
+Left:40
+Top:10
+Width:20
+}
+}
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:id
+Enabled:1
+Field:id
+IsKey:1
+IsOperator:0
+IsSerial:0
+Name:id
+StaticUrl:0
+ViewUrl:""
+Visible:0
+Position
+{
+Height:20
+Left:70
+Top:10
+Width:78
+}
+}
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:登录名
+Enabled:1
+Field:loginname
+IsKey:0
+IsOperator:0
+IsSerial:0
+Name:loginname
+StaticUrl:0
+ViewUrl:""
+Visible:1
+Position
+{
+Height:20
+Left:173
+Top:10
+Width:78
+}
+}
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:昵称
+Enabled:1
+Field:alias
+IsKey:0
+IsOperator:0
+IsSerial:0
+Name:alias
+StaticUrl:0
+ViewUrl:""
+Visible:1
+Position
+{
+Height:20
+Left:276
+Top:10
+Width:78
+}
+}
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:主管
+Enabled:1
+Field:leader
+IsKey:0
+IsOperator:0
+IsSerial:0
+Name:leader
+StaticUrl:0
+ViewUrl:""
+Visible:1
+Position
+{
+Height:20
+Left:365
+Top:10
+Width:78
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+EasyScript
+{
+Caption:设置页面参数
+Code:"me.PageParam.当前部门ID = me._vo.id;"
+CodeType:load
+Name:EasyScript3
+Position
+{
+Height:20
+Left:118
+Top:-32
+Width:80
+}
+}
+}
+}

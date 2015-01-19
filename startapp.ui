@@ -1,0 +1,187 @@
+ServicePage
+{
+Code:"<%
+
+try
+{
+	main();
+}
+catch(ex)
+{
+	var sCallStack = callstack();
+	sCallStack = \"<div style=\\"text-align:left\\">\"+sCallStack.Replace(\"\n\",\"<br>\")+\"</div>\";
+	ErrorAndRedirect(string(ex)+sCallStack,(new vo()).FixUrl(\"/default.esh\"));
+}
+
+public function ErrorAndRedirect(var sErr,var url)
+{
+	_alert(\"error\",sErr,url);
+}
+public function InfoAndRedirect(var sErr,var url)
+{
+	_alert(\"info\",sErr,url);
+}
+public function SuccessAndRedirect(var sErr,var url)
+{
+	_alert(\"success\",sErr,url);
+}
+public function WarningAndRedirect(var sErr,var url)
+{
+	_alert(\"block\",sErr,url);
+}
+private function _alert(var sType=\"error\",var sErr,var url)
+{
+	var title=\"错误\";
+	switch(sType)
+	{
+		case \"error\": title=\"错误\";
+		case \"info\" : title = \"信息\";
+		case \"block\" : title=\"警告\";
+		case \"success\" : title=\"提示\";
+	}
+	var _vo = new vo();
+	var s = \"
+	<html>
+		<head>
+			<meta charset=\\"utf-8\\" />
+			<link rel=\\"stylesheet\\" type=\\"text/css\\" href=\\"\"+_vo.FixUrl(\"/bjui/bootstrap2.2/css/bootstrap.css\")+\"\\">
+			<link rel=\\"stylesheet\\" type=\\"text/css\\" href=\\"\"+_vo.FixUrl(\"/bjui/css/bjui.css\")+\"\\">
+			<script type=\\"text/javascript\\" src=\\"\"+_vo.FixUrl(\"/bjui/bootstrap2.2/js/jquery-1.7.2.min.js\")+\"\\"></script>
+			<script type=\\"text/javascript\\" src=\\"\"+_vo.FixUrl(\"/bjui/bootstrap2.2/js/bootstrap.min.js\")+\"\\"></script>
+			<!--[if lte IE 6]>
+			  <!-- bsie js 补丁只在IE6中才执行 -->
+			  <script type=\\"text/javascript\\" src=\\"\"+_vo.FixUrl(\"/bjui/bootstrap2.2/js/bootstrap-ie.js\")+\"\\"></script>
+			<![endif]-->
+			<script type=\\"text/javascript\\" src=\\"\"+_vo.FixUrl(\"/bjui/js/bjui.js\")+\"\\"></script>
+		
+			<script src=\\"\"+_vo.FixUrl(\"/bjui/js/jquery.easing.min.js\")+\"\\" type=\\"text/javascript\\" ></script>
+			
+		</head>
+		<body >
+			<div style=\\"height:100px\\"></div>
+			<div class=\\"row-fluid\\">
+				<div class=\\"span4\\"></div>
+				<div class=\\"span4\\">
+					<div >
+						<div class=\\"alert alert-\"+ sType+\"\\" >
+							<h4>\"+title+\"</h4>
+							<div style=\\"text-align:center\\">
+							\"+sErr+\"
+							</div>
+							<div style=\\"text-align:center;margin-left:auto;margin-right:auto\\">
+								<div style=\\"margin-top:20px;margin-bottom:10px\\">
+									<button class=\\"btn  btn-primary\\" type=\\"button\\" id=\\"okbtn\\">确定</button>
+								</div>
+							</div>
+						</div>
+						<script type=\\"text/javascript\\">
+							$(\\"#okbtn\\").bind(\\"click\\",function(){
+								window.location.href = \\"\"+ url + \"\\";
+							});
+						</script>
+					</div>
+				</div>
+				<div class=\\"span4\\"></div>
+			</div>
+		</body>
+	</html>
+	\";
+
+	echo(s);
+	halt;
+}
+	
+public function main()
+{
+	//==== load app
+	var _vo = new vo();
+	var sAppName = _vo.wf_app;
+	var sJobID = _vo.wf_jobid;
+	var oWebSite = new website();
+	
+	if( sJobID <> \"\" )
+	{
+		//环境准备
+		var oJob = staticcall(\"Workflow.Model.Job.Load\",sJobID);
+		var oProcess = staticcall(\"Workflow.Model.Process.Load\",oJob.ProcessID);
+		var oApp = staticcall(\"Workflow.Model.Application.LoadDcppApp\",oProcess.AppName,oProcess.AppVer);
+		var oSegment = prop(oApp,oJob.Segment);
+	
+		//权限判断
+		if( 0+ int(modulecall(\"模型.运行时.会话.Current\").UserID) <> int(oJob.UserID) )
+			throw \"未授权\";//fix me later : 以后要支持代办
+			
+		//页面查找
+		var sPageID = oSegment.UIPath;
+		var oPage = (new dao.table(\"t_wf_form\")).Single(\"where id=?\",sPageID);
+		if( oPage == null ) throw \"找不到Job对应的页面\";
+		
+		//页面模块
+		var sPageModuleName = \"|flowui.\"+sPageID;
+		var bHasStartPage = oWebSite.HasDynamicModule(sPageModuleName);
+		if( !bHasStartPage )
+		{
+			var sErr = oWebSite.CreateDynamicModule(sPageModuleName,oPage.content,true);
+			if( sErr <> \"\" ) throw sErr;
+		}
+		
+		//打开界面
+		dynamiccall(sPageModuleName,\"main\",_vo,sJobID,sAppName);
+		
+	}
+	else
+	{
+		//没登录的情况下不可以直接使用，因为没有cc信息
+		var oApp = (new dao.table(\"t_wf_app\")).Single(\"select module from t_wf_app where name=? and published=1 order by ver desc\",sAppName);
+		if( oApp == null ) throw \"流程(\"+sAppName+\")不可启动，可能原因是流程未发布或不存在\";
+		
+		//fix me later : 检查当前用户有没有权限启动这个流程
+		var oFlowApp = staticcall(\"Workflow.Model.Application.LoadDcppApp\",sAppName);
+		if( oFlowApp == null ) throw \"创建流程对象失败\";
+		//得到开始环节
+		var oStartSegment = oFlowApp.StartSegment;
+		//得到启动页面
+		var sPageID = oStartSegment.UIPath;
+		if( sPageID <> \"\" )
+		{
+			var oPage = (new dao.table(\"t_wf_form\")).Single(\"where id=?\",sPageID);
+			if( oPage == null ) throw \"找不到流程的启动页面\";
+			var sPageModuleName = \"|flowui.\"+sPageID;
+			var bHasStartPage = oWebSite.HasDynamicModule(sPageModuleName);
+			if( !bHasStartPage )
+			{
+				var sErr = oWebSite.CreateDynamicModule(sPageModuleName,oPage.content,true);
+				if( sErr <> \"\" ) throw sErr;
+			}
+			//构造缺省参数
+			var allVar = oFlowApp.Vars;
+			var oViewState = { };
+			each(a,allVar)
+			{
+				prop(oViewState,a.Name,a.DefaultValue);
+			}
+			dynamiccall(sPageModuleName,\"main\",oViewState,sJobID,sAppName);//打开启动页面
+			//InfoAndRedirect(\"流程启动成功！\",_vo.FixUrl(\"/default.esh\"));
+		}
+		else
+		{//没有启动页的，就直接执行流程并反馈状态
+			//启动流程
+			modulecall(\"Workflow.EngineInterface.启动流程\",sAppName,{});
+			//反馈流程状态 fix me later
+			InfoAndRedirect(\"流程启动成功！\",_vo.FixUrl(\"/default.esh\"));
+		}
+	}
+}
+
+
+%>"
+Name:ServicePage1
+PageID:FP7142C664FEFA4035CF97C4134A842F8E
+Position
+{
+Height:80
+Left:90
+Top:82
+Width:100
+}
+}

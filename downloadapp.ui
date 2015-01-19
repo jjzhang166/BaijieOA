@@ -1,0 +1,44 @@
+ServicePage
+{
+Code:"<%
+try
+{
+	var vo = new vo();
+	(new response()).ContentType = \"text/plain\";
+	var sPostString = vo.GetPostString();
+	//(new log()).Infor(\"post=\"+sPostString);
+	
+	//解析输入
+	var oNode = (new helper()).ConvertFromNode( sPostString );
+	
+	//帐号检测
+	//throw (\"user=\"+oNode.user+\" pwd=\"+oNode.pwd+\" app=\"+oNode.appname);
+	var oUser = (new dao.table(\"t_user\")).Single(\"where isdeleted=0 and loginname=?\",oNode.user);
+	if( oUser == null || oUser.pwd <> (new encrypt.MD5()).Encode( oNode.pwd ) )
+		throw \"非法的帐号信息\";
+		
+	//判断权限
+	var oRolePre = (new dao.table(\"t_role_predefine\")).Single(\"where role=? and userid=?\",\"$流程设计人员\",int(oUser.id));
+	if( null == oRolePre ) throw \"没有授权\";
+
+	//返回结果
+	var oApp = (new dao.table(\"t_wf_app\")).Single(
+			\"select a.*,b.alias from t_wf_app a left join t_user b on a.userid =b.id where a.isdeleted=0 and a.name=? and a.ver=? and (userid=? or shared=1)\",
+			oNode.appname,oNode.ver,oUser.id);
+	echo( (new helper()).ConvertToNode( oApp ) );
+}
+catch(ex)
+{
+	echo(\"error:\"+ex);
+}
+%>"
+Name:ServicePage1
+PageID:FPE1796F771F28426AED8B60A9B0573ACE
+Position
+{
+Height:80
+Left:219
+Top:142
+Width:100
+}
+}

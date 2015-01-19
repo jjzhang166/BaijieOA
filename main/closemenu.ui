@@ -1,0 +1,34 @@
+BjPage
+{
+AdjustFrame:0
+BeforeCreate:""
+BodyProp:""
+BootstrapVer:2
+Caption:""
+Enabled:1
+Name:BjPage1
+PageID:""
+ParenClass:""
+Visible:1
+Workflow:""
+Position
+{
+Height:600
+Left:33
+Top:45
+Width:800
+}
+Events
+{
+Def:""
+OnLoad:"var 会话 = modulecall(\"模型.运行时.会话.Current\");
+
+var openfuncs = 会话.OpenFunctions;
+var iCount = openfuncs.Count;
+if( iCount == 1 ) me.ErrorAndRedirect(\"最后一个功能不可以关闭\",FixUrl(openfuncs[0].Url));
+
+
+modulecall(\"模型.运行时.会话.关闭顶级功能\",会话,me._vo.menu);
+redirect(FixUrl(\"/main/mydesk.esh\"));"
+}
+}

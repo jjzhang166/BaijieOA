@@ -1,0 +1,565 @@
+TempPage
+{
+Name:TempPage1
+Position
+{
+Height:1771
+Left:66
+Top:55
+Width:1600
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"width:100%; height:93px;z-index:100000; background:RGB(234,244,244);top:0px; position:fixed;\""
+ID:""
+Name:Box1
+TagName:div
+Visible:1
+Position
+{
+Height:525
+Left:29
+Top:29
+Width:1558
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:""
+ID:""
+Name:Box2
+TagName:""
+Visible:1
+Position
+{
+Height:505
+Left:7
+Top:11
+Width:1137
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"class=\"clearfix\""
+ID:""
+Name:Box11
+TagName:""
+Visible:1
+Position
+{
+Height:15
+Left:27
+Top:180
+Width:1091
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"position:fixed; top:55px;width:100%;z-index:1000\""
+ID:""
+Name:Box4
+TagName:""
+Visible:1
+Position
+{
+Height:261
+Left:23
+Top:226
+Width:1095
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"class=\"pull-left\" style=\"margin-left:5px;margin-right:5px;margin-top:2px\""
+ID:""
+Name:Box6
+TagName:""
+Visible:1
+Position
+{
+Height:228
+Left:11
+Top:13
+Width:389
+}
+@
+{
+BjButton
+{
+BeforeCreate:""
+Block:0
+ButtonType:normal
+Caption:快捷菜单
+Enabled:1
+Feedback:danger
+ID:功能模块
+Inline:""
+Name:BjButton1
+Size:default
+URL:""
+URLParam:""
+Visible:1
+Position
+{
+Height:205
+Left:7
+Top:9
+Width:361
+}
+Events
+{
+OnClick:""
+OnClientClick:""
+}
+@
+{
+BjPopMenu
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:BjPopMenu1
+Visible:1
+Position
+{
+Height:164
+Left:14
+Top:21
+Width:333
+}
+@
+{
+ConditionControl
+{
+Action:oShortcut,allShortcut
+BeforeCreate:"var allShortcut = (new dao.table(\"t_shortcut\")).Query(\"select b.name,b.displayname,b.url from t_shortcut a left join t_sysfunc b on a.funcid = b.id where a.userid=?\",me.会话.UserID);
+"
+Method:each
+Name:ConditionControl2
+Position
+{
+Height:72
+Left:29
+Top:29
+Width:246
+}
+@
+{
+ConditionControl
+{
+Action:"null <> oShortcut"
+BeforeCreate:""
+Method:if
+Name:ConditionControl3
+Position
+{
+Height:43
+Left:27
+Top:17
+Width:156
+}
+@
+{
+Html
+{
+BeforeCreate:""
+Caption:<%echo(rightmenu);%>
+Code:"
+<li role=\"presentation\">
+<a role=\"menuitem\" tabindex=\"-1\" href=\"<%echo(FixUrl(oShortcut.url));%>\">
+
+<%echo(oShortcut.displayname == \"\" ? oShortcut.name : oShortcut.displayname); %>
+
+</a>
+</li>
+
+"
+Name:Html5
+Position
+{
+Height:20
+Left:15
+Top:12
+Width:80
+}
+}
+}
+}
+}
+}
+BjPopMenuItem
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:设置
+Enabled:1
+IsDivider:0
+Name:BjPopMenuItem1
+URL:"<%echo(FixUrl(\"/personal/shortcut.esh\"));%>"
+Visible:1
+Position
+{
+Height:28
+Left:20
+Top:112
+Width:192
+}
+}
+}
+}
+}
+}
+}
+}
+BjTabNav
+{
+BeforeCreate:"var oTopFuncs = new node();
+oTopFuncs.FromString( me.会话._Session[\"topfunc\"] );"
+ExtProp:"style=\"padding:2px;height:34px;margin-bottom:2px;\""
+IsVert:0
+Name:一级菜单
+pullalign:left
+Position
+{
+Height:119
+Left:413
+Top:13
+Width:652
+}
+@
+{
+ConditionControl
+{
+Action:a,oTopFuncs
+BeforeCreate:""
+Method:each
+Name:ConditionControl1
+Position
+{
+Height:59
+Left:13
+Top:12
+Width:296
+}
+@
+{
+BjTabNavItem
+{
+Active:"me.ControlProp[\"一级菜单/Active\"] == a.n"
+BeforeCreate:""
+Caption:"<% echo(a.d); %>"
+Enabled:1
+IsDivid:0
+Name:"<% a.n %>"
+Visible:1
+href:"<% echo(FixUrl(a.u)); %>"
+Position
+{
+Height:20
+Left:23
+Top:12
+Width:182
+}
+}
+}
+}
+}
+}
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:""
+ID:""
+Name:Box5
+TagName:""
+Visible:1
+Position
+{
+Height:143
+Left:25
+Top:25
+Width:1093
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"float:left;margin-top:-12px\""
+ID:""
+Name:Box10
+TagName:""
+Visible:1
+Position
+{
+Height:100
+Left:23
+Top:13
+Width:219
+}
+@
+{
+html_image
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"float:left;margin:5px;width:48px;height:42px\""
+Name:html_image_1
+Visible:1
+src:"<% echo(FixUrl(\"/images/baijielogo.png\")); %>"
+Position
+{
+Height:70
+Left:12
+Top:8
+Width:82
+}
+}
+Html
+{
+BeforeCreate:""
+Caption:产品名称
+Code:"<div style=\"position:relative;top:15px;width:260px;font-family:微软雅黑\">
+<div style=\"font-size:18px;color:RGB(19,17,111)\" ><b>百捷综合办公平台 V2.0</b></div>
+</div>"
+Name:Html1
+Position
+{
+Height:20
+Left:103
+Top:26
+Width:80
+}
+}
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"text-align:center;margin-left:30px;position:relative;margin-top:10px;width:85%:\""
+ID:""
+Name:Box12
+TagName:div
+Visible:1
+Position
+{
+Height:91
+Left:269
+Top:13
+Width:606
+}
+@
+{
+Html
+{
+BeforeCreate:""
+Caption:""
+Code:"<ul class=\"nav nav-pills\">
+	<li>
+		<a href=\"<% echo(FixUrl(\"/main/mydesk.esh\")); %>\"><i class=\"icon-home\"></i>桌面</a>
+	</li>
+	<li class=\"dropdown\" style=\"text-align:left\">
+		<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">
+			<i class=\"icon-volume-down \"></i>消息
+			<span class=\"badge \" style=\"margin-left:5px\">0</span>
+			<b class=\"caret\"></b>
+		</a>
+		<ul class=\"dropdown-menu\">
+		<!-- menu links -->
+		</ul>
+	</li>
+	<li>
+		<a href=\"<% echo(FixUrl(\"/personal/mycard.esh\")); %>\"><i class=\"icon-cog\"></i>个人设置</a>
+	</li>
+	<li class=\"dropdown\" style=\"text-align:left\">
+		<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">
+			<i class=\"icon-heart \"></i>百捷网络
+			<b class=\"caret\"></b>
+		</a>
+		<ul class=\"dropdown-menu\">
+			<li><a href=\"http://www.baijienet.com/\"><i class=\"icon-cog\"></i> 百捷官网</a></li>
+			<li><a href=\"http://www.baijienet.com/bbs/home.esh\">技术支持论坛</a></li>
+			<li><a href=\"http://www.baijienet.com/bbs/regbbsuser.esh?company=1\">企业注册</a></li>
+			<li><a href=\"http://www.baijienet.com/product/oarequire.esh\">向百捷提需求</a></li>
+			<li><a href=\"http://www.baijienet.com/fuwu/zhenzhifuwu_0.html\">增值服务</a></li>
+		</ul>
+	</li>
+	<li>
+		<a href=\"<%echo(FixUrl(\"/logout.esh\"));%>\"><i class=\"icon-off\"></i>安全退出</a>
+	</li>
+</ul>"
+Name:Html3
+Position
+{
+Height:20
+Left:32
+Top:26
+Width:80
+}
+}
+}
+}
+}
+}
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"z-index:1200;width:178px;position:fixed;right:2px;top:2px\""
+ID:""
+Name:Box13
+TagName:""
+Visible:1
+Position
+{
+Height:504
+Left:1156
+Top:12
+Width:386
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"float:right;text-align:center\""
+ID:""
+Name:Box2
+TagName:div
+Visible:1
+Position
+{
+Height:152
+Left:8
+Top:15
+Width:227
+}
+@
+{
+html_image
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"position:relative;width:58px;height:58px;\""
+Name:html_image_2
+Visible:1
+src:"<% echo(FixUrl(me.会话.Icon)); %>"
+Position
+{
+Height:45
+Left:9
+Top:12
+Width:91
+}
+}
+Html
+{
+BeforeCreate:""
+Caption:提醒信息
+Code:"
+<div style=\"margin:5px\">
+	<%echo(me.会话.Alias);%> 
+</div>
+
+
+"
+Name:Html7
+Position
+{
+Height:20
+Left:14
+Top:68
+Width:80
+}
+}
+}
+}
+}
+}
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"class=\"clearfix\" style=\"background-color:white;margin-top:94px;margin-bottom:5px\""
+ID:""
+Name:Box9
+TagName:""
+Visible:1
+Position
+{
+Height:50
+Left:29
+Top:579
+Width:596
+}
+}
+EasyScript
+{
+Caption:修正菜单地址
+Code:"public function 修正菜单地址(var oNode)
+{
+	if( oNode.Has(\"u\") && \"\" <> oNode.u ) oNode.u = FixUrl(oNode.u);
+	each(a,oNode) 修正菜单地址(a);
+}"
+CodeType:server
+Name:EasyScript1
+Position
+{
+Height:20
+Left:-3
+Top:-33
+Width:99
+}
+}
+}
+}

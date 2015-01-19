@@ -1,0 +1,40 @@
+public class Selected
+{
+	private var _ControlName="";
+	public function new(var sControlName)
+	{
+		_ControlName = sControlName;
+	}
+	public function Indexs()
+	{
+		var vo = new vo();
+		var iCount = vo.GetFormFieldCount();
+		var sPre = "chk_" + _ControlName;
+		var ret = [];
+		for(var i=0;i<iCount;i++)
+		{
+			var sFieldName = vo.GetFormFieldName(i);
+			if( sFieldName.Find(sPre) == 0 )
+			{
+				ret.Add( int(sFieldName.Right(sFieldName.Length - sPre.Length) ) );
+			}
+		}
+		return ret;
+	}
+	public function Values()
+	{
+		var vo = new vo();
+		var iCount = vo.GetFormFieldCount();
+		var sPre = "chk_" + _ControlName;
+		var ret = [];
+		for(var i=0;i<iCount;i++)
+		{
+			var sFieldName = vo.GetFormFieldName(i);
+			if( sFieldName.Find(sPre) == 0 )
+			{
+				ret.Add( vo.GetFormFieldValue(i) );
+			}
+		}
+		return ret;
+	}
+}

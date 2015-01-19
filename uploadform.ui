@@ -1,0 +1,71 @@
+ServicePage
+{
+Code:"<%
+
+	
+try
+{
+
+	
+	var vo = new vo();
+	(new response()).ContentType = \"text/plain\";
+	var sPostString = vo.GetPostString();
+	//(new log()).Infor(\"post=\"+sPostString);
+	
+	//解析输入
+	var oNode = (new helper()).ConvertFromNode( sPostString );
+	
+	//帐号判断
+	//throw (\"user=\"+oNode.user+\" pwd=\"+oNode.pwd+\" app=\"+oNode.appname);
+	var oUser = (new dao.table(\"t_user\")).Single(\"where isdeleted=0 and loginname=?\",oNode.user);
+	if( oUser == null || oUser.pwd <> (new encrypt.MD5()).Encode( oNode.pwd ) )
+		throw \"非法的帐号信息\";
+		
+	//判断权限
+	var oRolePre = (new dao.table(\"t_role_predefine\")).Single(\"where role=? and userid=?\",\"$流程设计人员\",int(oUser.id));
+	if( null == oRolePre ) throw \"没有授权\";
+	
+	//冲突检测
+	var oForm = (new dao.table(\"t_wf_form\")).Single(\"select id,name,userid from t_wf_form where id=?\",oNode.formid);
+	if( null <> oForm && int(oForm.userid) <> int(oUser.id) ) throw \"与其它人的流程页面存在ID冲突！\";
+	
+	
+	
+	//保存或更新界面
+	var obj=
+	{
+		\"name\"			:		oNode.formname,
+		\"userid\"		:		oUser.id,
+		\"content\"		:		oNode.content
+	};
+	if( oForm <> null )
+		(new dao.table(\"t_wf_form\")).Update(obj,\"id\",oNode.formid);
+	else
+	{
+		obj.id = oNode.formid;
+		(new dao.table(\"t_wf_form\")).Add(obj);
+	}
+	
+	//更新缓存的模块
+	var ws = new website();
+	var sPageModule = \"|flowui.\" + oNode.formid;
+	if( ws.HasDynamicModule(sPageModule) ) ws.RemoveDynamicModule(sPageModule);
+	
+	//返回结果
+	echo(1);
+}
+catch(ex)
+{
+	echo(\"error:\"+ex);
+}
+%>"
+Name:ServicePage1
+PageID:FPD3DEABF2BBB34CFA5DAFE21F0ADF4718
+Position
+{
+Height:80
+Left:134
+Top:102
+Width:100
+}
+}

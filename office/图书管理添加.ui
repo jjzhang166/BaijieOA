@@ -1,0 +1,624 @@
+BjPage
+{
+AdjustFrame:0
+BeforeCreate:""
+BodyProp:""
+BootstrapVer:2
+Caption:添加图书
+Enabled:1
+Name:BjPage1
+PageID:""
+ParenClass:""
+Visible:1
+Workflow:0
+Position
+{
+Height:600
+Left:61
+Top:49
+Width:800
+}
+Events
+{
+Def:""
+OnLoad:""
+}
+@
+{
+UserControl
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+Name:UserControl1
+PathName:"/template/基础功能.ui"
+Visible:1
+Position
+{
+Height:631
+Left:28
+Top:34
+Width:1080
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:""
+ID:""
+Name:BaseClient
+TagName:""
+Visible:1
+Position
+{
+Height:578
+Left:18
+Top:24
+Width:1037
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:""
+ID:""
+Name:Box1
+TagName:""
+Visible:1
+Position
+{
+Height:162
+Left:12
+Top:12
+Width:985
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:""
+ID:""
+Name:Box3
+TagName:""
+Visible:1
+Position
+{
+Height:78
+Left:16
+Top:11
+Width:423
+}
+@
+{
+html_image
+{
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"float:left;margin-top:7px\""
+Name:html_image_1
+Visible:1
+src:"<% echo(FixUrl(\"/images/bankuaijiantou.gif\")); %>"
+Position
+{
+Height:45
+Left:13
+Top:14
+Width:50
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"float:left;\""
+ID:""
+Name:Box5
+TagName:span
+Visible:1
+Position
+{
+Height:55
+Left:76
+Top:14
+Width:331
+}
+@
+{
+BjBreadcrumbNav
+{
+BeforeCreate:""
+ExtProp:"style=\"background-Color:white;padding:2px;margin:2px\" "
+Name:BjBreadcrumbNav1
+Position
+{
+Height:40
+Left:11
+Top:5
+Width:307
+}
+@
+{
+BjBreadcrumb
+{
+Active:""
+BeforeCreate:""
+Caption:桌面
+Divider:"/"
+Enabled:1
+Name:BjBreadcrumb1
+Visible:1
+href:"<%echo(FixUrl(\"/main/mydesk.esh\"));%>"
+Position
+{
+Height:20
+Left:9
+Top:12
+Width:80
+}
+}
+BjBreadcrumb
+{
+Active:""
+BeforeCreate:""
+Caption:图书管理
+Divider:"/"
+Enabled:1
+Name:BjBreadcrumb2
+Visible:1
+href:图书管理.esh
+Position
+{
+Height:20
+Left:97
+Top:12
+Width:80
+}
+}
+BjBreadcrumb
+{
+Active:""
+BeforeCreate:""
+Caption:添加
+Divider:""
+Enabled:1
+Name:BjBreadcrumb2
+Visible:1
+href:""
+Position
+{
+Height:20
+Left:189
+Top:12
+Width:80
+}
+}
+}
+}
+}
+}
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"float:right\""
+ID:""
+Name:Box4
+TagName:""
+Visible:1
+Position
+{
+Height:89
+Left:613
+Top:11
+Width:320
+}
+@
+{
+BjButton
+{
+BeforeCreate:""
+Block:0
+ButtonType:back
+Caption:"<i class=\"icon-repeat \" style=\"margin-right:5px\" ></i>返回"
+Enabled:1
+Feedback:default
+ID:""
+Inline:1
+Name:BjButton2
+Size:default
+URL:""
+URLParam:""
+Visible:1
+Position
+{
+Height:20
+Left:112
+Top:39
+Width:80
+}
+Events
+{
+OnClick:""
+OnClientClick:""
+}
+}
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"class=\"clearfix\" style=\"margin-bottom:5px\""
+ID:""
+Name:Box6
+TagName:""
+Visible:1
+Position
+{
+Height:22
+Left:0
+Top:132
+Width:493
+}
+}
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"class=\"line\" style=\"magrin-top:5px;margin-bottom:5px;\""
+ID:""
+Name:Box2
+TagName:""
+Visible:1
+Position
+{
+Height:30
+Left:12
+Top:183
+Width:985
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:""
+ID:""
+Name:Box7
+TagName:""
+Visible:1
+Position
+{
+Height:329
+Left:12
+Top:229
+Width:985
+}
+@
+{
+BjSubmitArea
+{
+Action:""
+BeforeCreate:""
+Caption:""
+FileUpload:0
+Horz:0
+ID:""
+Inline:0
+Method:post
+Name:BjSubmitArea1
+Search:0
+Position
+{
+Height:248
+Left:50
+Top:29
+Width:471
+}
+@
+{
+Html
+{
+BeforeCreate:""
+Caption:""
+Code:"
+    <div>    
+     
+<table style=\"width: 100%\" bgcolor=\"#999999\" border=\"0\" cellpadding=\"2\" cellspacing=\"1\">
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		图书名称：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"BookName\" name=\"BookName\" Width=\"350px\"></input>
+		
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		图书编码：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"BookSerils\" name=\"BookSerils\" Width=\"350px\"></input>
+		
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		所属部门：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"SuoShuBuMen\" name=\"SuoShuBuMen\" Width=\"350px\"></input>
+		
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		图书类别：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"BookType\" name=\"BookType\" Width=\"350px\"></input>
+		
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		作者：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"Auother\" name=\"Auother\" Width=\"350px\"></input>
+		
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		ISBN号：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"ISBN\" name=\"ISBN\" Width=\"350px\"></input>
+		
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		出版社：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"CoperStr\" name=\"CoperStr\" Width=\"350px\"></input>
+		
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		出版日期：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"ChuBanDate\"name=\"ChuBanDate\" Width=\"350px\" ></input>
+		
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		存放位置：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"CunFangDian\" name=\"CunFangDian\" Width=\"350px\"></input>
+		
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		数量：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"ShuLiang\" name=\"ShuLiang\" Width=\"350px\"></input>
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		价格：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"JiaGe\" name=\"JiaGe\" Width=\"350px\"></input>
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		内容简介：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"NeiRong\" name=\"NeiRong\" Width=\"350px\" Height=\"60px\" TextMode=\"MultiLine\"></input>
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		当前状态：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"NowState\" name=\"NowState\" Width=\"350px\"></input>
+		<img class=\"HerCss\" onclick=\"var wName;var RadNum=Math.random();wName=window.showModalDialog('../Main/SelectCondition.aspx?TableName=oa_Book&LieName=NowState&Radstr='+RadNum,'','dialogWidth:350px;DialogHeight=400px;status:no;help:no;resizable:yes;');if(wName==null){}else{document.getElementById('txtNowState').value=wName;}\"  src=\"../images/Button/search.gif\" />
+	</td></tr>
+	<tr>
+	<td style=\"width: 170px; height: 25px; background-color: #cccccc\" align=\"right\">
+		备注说明：
+	</td>
+	<td style=\"padding-left: 5px; height: 25px; background-color: #ffffff\" >
+		<input id=\"BackInfo\" name=\"BackInfo\" Width=\"350px\" Height=\"60px\" TextMode=\"MultiLine\"></input></td></tr>
+</table>
+
+		</div>
+	
+	
+<script type=\"text/javascript\" language=\"javascript\">
+  function PrintTable()
+    {
+        document.getElementById(\"PrintHide\") .style.visibility=\"hidden\"    
+        print();
+        document.getElementById(\"PrintHide\") .style.visibility=\"visible\"
+    }
+    $(function () {
+        $(\"#txtChuBanDate\").datepicker();
+        $(\"#txtChuBanDate\").datepicker(\"option\", \"dateFormat\", \"yy-mm-dd\");
+
+    }); 
+  </script>"
+Name:Html1
+Position
+{
+Height:20
+Left:102
+Top:52
+Width:80
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"margin-top:10px;margin-bottom:10px\""
+ID:""
+Name:Box8
+TagName:""
+Visible:1
+Position
+{
+Height:49
+Left:53
+Top:126
+Width:347
+}
+@
+{
+BjButton
+{
+BeforeCreate:""
+Block:0
+ButtonType:submit
+Caption:"<i class=\"icon-ok icon-white\" style=\"margin-right:5px\" ></i>提交"
+Enabled:1
+Feedback:danger
+ID:""
+Inline:1
+Name:btnsubmit_oa_workrizhi
+Size:default
+URL:""
+URLParam:""
+Visible:1
+Position
+{
+Height:20
+Left:13
+Top:9
+Width:80
+}
+Events
+{
+OnClick:"
+try
+{
+	
+			
+			
+			
+}
+catch (ex)
+{
+
+	return;
+}
+var obj=
+{
+	\"bookname\"			: me._vo.bookname,
+	\"BookSerils\"			: me._vo.bookserils,
+	\"SuoShuBuMen\"			: me._vo.suoshubumen,
+	\"BookType\"			: me._vo.booktype,
+	\"Auother\"			: me._vo.auother,
+	\"ISBN\"				: me._vo.isbn,
+	\"CoperStr\"			: me._vo.coperstr,
+	\"ChuBanDate\"			: me._vo.chubandate,
+	\"CunFangDian\"			: me._vo.cunfangdian,
+	\"ShuLiang\"			: me._vo.shuliang,
+	\"JiaGe\"				: me._vo.jiage,
+	\"NeiRong\"			: me._vo.neirong,
+	\"NowState\"			: me._vo.nowstate,
+	\"BackInfo\"			: (new helper()).HtmlEncode(me._vo.backinfo),
+	\"UserName\"			: me.会话.UserName,
+	\"TimeStr\"			: new DateTime()
+};
+(new dao.table(\"t_book\")).Add(obj);
+
+redirect(\"图书管理.esh\");"
+OnClientClick:""
+}
+}
+BjButton
+{
+BeforeCreate:""
+Block:0
+ButtonType:back
+Caption:"<i class=\"icon-repeat \" style=\"margin-right:5px\" ></i>返回"
+Enabled:1
+Feedback:default
+ID:""
+Inline:1
+Name:btncancel_oa_workrizhi
+Size:default
+URL:""
+URLParam:""
+Visible:1
+Position
+{
+Height:20
+Left:113
+Top:11
+Width:80
+}
+Events
+{
+OnClick:""
+OnClientClick:""
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+EasyScript
+{
+Caption:设置二级菜单
+Code:"me.ControlProp[\"二级菜单/Active\"] = \"图书管理\";"
+CodeType:load
+Name:EasyScript1
+Position
+{
+Height:20
+Left:7
+Top:-33
+Width:80
+}
+}
+}
+}

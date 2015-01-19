@@ -1,0 +1,44 @@
+ServicePage
+{
+Code:"<%
+try
+{
+	var vo = new vo();
+	(new response()).ContentType = \"text/plain\";
+	var sPostString = vo.GetPostString();
+	//(new log()).Infor(\"post=\"+sPostString);
+	
+	//解析输入
+	var oNode = (new helper()).ConvertFromNode( sPostString );
+	
+	//帐号检测
+	//throw (\"user=\"+oNode.user+\" pwd=\"+oNode.pwd+\" app=\"+oNode.appname);
+	var oUser = (new dao.table(\"t_user\")).Single(\"where isdeleted=0 and loginname=?\",oNode.user);
+	if( oUser == null || oUser.pwd <> (new encrypt.MD5()).Encode( oNode.pwd ) )
+		throw \"非法的帐号信息\";
+		
+	//判断权限
+	var oRolePre = (new dao.table(\"t_role_predefine\")).Single(\"where role=? and userid=?\",\"$流程设计人员\",int(oUser.id));
+	if( null == oRolePre ) throw \"没有授权\";
+
+	//返回结果
+	var oForm = (new dao.table(\"t_wf_form\")).Single(
+			\"where userid=? and id=?\",
+			oUser.id,oNode.formid);
+	echo( (new helper()).ConvertToNode( oForm ) );
+}
+catch(ex)
+{
+	echo(\"error:\"+ex);
+}
+%>"
+Name:ServicePage1
+PageID:FPEFDB28A5AA66445ED89026FE32846E71
+Position
+{
+Height:80
+Left:181
+Top:203
+Width:100
+}
+}

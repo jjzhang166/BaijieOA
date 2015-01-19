@@ -1,0 +1,20 @@
+ServicePage
+{
+Code:"<%
+var id = (new vo()).id;
+var path = (new dao.table(\"t_hr_file\")).Single(\"select photo from t_hr_file where id=?\",id).photo;
+var webpath = (new website()).attachpath;
+if( webpath.Right(1) == \"\\\" ) webpath = webpath.Left(webpath.Length-1);
+path = webpath + path;
+(new response()).SendFile(path);
+%>"
+Name:ServicePage1
+PageID:FP9036D17BB9C74602618DA05727E8F728
+Position
+{
+Height:79
+Left:137
+Top:129
+Width:95
+}
+}

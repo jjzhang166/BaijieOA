@@ -1,0 +1,38 @@
+public const 表名 = "t_user";
+
+public class User
+{
+	public const 男=0;
+	public const 女=1;
+	public const 性别未知=2;
+}
+
+public function LoadByID(var id)
+{
+	var oRecord = (new dao.table(表名)).Single("where isdeleted=0 and id=?",id);
+	return oRecord;
+}
+
+public function LoadByLoginName(var sLoginName)
+{
+	var oRecord = (new dao.table(表名)).Single("where isdeleted=0 and loginname=?",sLoginName);
+	return oRecord;
+}
+
+public function CanLogin(var sLoginName,var sPassword)
+{
+	var obj = LoadByLoginName(sLoginName);
+	if( obj  == null ) return null;
+	var pwd = (new encrypt.MD5()).Encode( string(sPassword) );
+	if( pwd <> obj.pwd ) return null;
+	return obj;
+}
+	
+public function ChangePwd(var id,var sOldPwd,var sNewPwd)
+{
+	var obj = (new dao.table(表名)).Single("select pwd from "+表名+" where id=?",int(id));
+	var p = (new encrypt.MD5()).Encode(sOldPwd);
+	if( p <> obj.pwd ) throw "旧密码不对";
+	p = (new encrypt.MD5()).Encode(sNewPwd);
+	(new dao.table(表名)).Update({"pwd":p},"id",int(id));
+}

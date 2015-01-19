@@ -1,0 +1,42 @@
+public const 表名 = "t_setting";
+
+public class 实体
+{
+	//预置设置
+	public var 版本系列	= modulecall("模型.平台.设置.操作.GetValue","verserial");
+	public var 版本类别	= modulecall("模型.平台.设置.操作.GetValue","edition");
+	public var 版本号	= modulecall("模型.平台.设置.操作.GetValue","vernum");
+	
+	
+	//扩展设置
+	public function __prop(var sName,var sValue)
+	{
+		if( argc < 2 )
+		{
+			return modulecall("模型.平台.设置.操作.GetValue",sName);
+		}
+		else
+		{
+			modulecall("模型.平台.设置.操作.SetValue",sName,sValue);
+		}
+	}
+}
+
+public function GetValue(var sKey)
+{
+	var obj = (new dao.table(表名)).Single("where name=?",sKey);
+	if( obj == null ) return null;
+	return obj.value;
+}
+
+public function SetValue(var sKey,var sValue)
+{
+	var obj={ "value" : sValue };
+	(new dao.table(表名)).Delete(obj,"name",sKey);
+	var objAdd=
+	{
+		"name"	: sKey,
+		"value"	: sValue
+	};
+	(new dao.table(表名)).Add(objAdd);
+}

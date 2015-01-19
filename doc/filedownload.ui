@@ -1,0 +1,22 @@
+ServicePage
+{
+Code:"<%
+var id = (new vo()).id;
+
+var obj = (new dao.table(\"t_doc_file\")).Single(\"select `name`,filepath from t_doc_file where id=?\",id);
+var path = obj.filepath;
+var webpath = (new website()).attachpath;
+if( webpath.Right(1) == \"\\\" ) webpath = webpath.Left(webpath.Length-1);
+path = webpath + path;
+(new response()).SendFile(path,obj.name);
+%>"
+Name:ServicePage1
+PageID:FPF3A42B400DAD46B5DAA68C57A84C287A
+Position
+{
+Height:80
+Left:161
+Top:135
+Width:100
+}
+}

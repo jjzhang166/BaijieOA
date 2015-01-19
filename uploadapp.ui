@@ -1,0 +1,77 @@
+ServicePage
+{
+Code:"<%
+
+try
+{
+	var vo = new vo();
+	(new response()).ContentType = \"text/plain\";
+	var sPostString = vo.GetPostString();
+	//(new log()).Infor(\"post=\"+sPostString);
+	
+	//解析输入
+	var oNode = (new helper()).ConvertFromNode( sPostString );
+	var sAppName = oNode.appname;
+	
+	//判断帐号
+	//throw (\"user=\"+oNode.user+\" pwd=\"+oNode.pwd+\" app=\"+oNode.appname);
+	var oUser = (new dao.table(\"t_user\")).Single(\"where isdeleted=0 and loginname=?\",oNode.user);
+	if( oUser == null || oUser.pwd <> (new encrypt.MD5()).Encode( oNode.pwd ) )
+		throw \"非法的帐号信息\";
+		
+	//判断权限
+	var oRolePre = (new dao.table(\"t_role_predefine\")).Single(\"where role=? and userid=?\",\"$流程设计人员\",int(oUser.id));
+	if( null == oRolePre ) throw \"没有授权\";
+	
+	//流程冲突判断
+	var oAppNoneShare = (new dao.table(\"t_wf_app\")).Single(\"where isdeleted=0 and name=? and shared=0 and userid <> ?\",sAppName,int(oUser.id));
+	if( null <> oAppNoneShare )
+		throw \"与他人的非共享流程同名！请改名后再上传\";
+	
+	//流程所有者
+	var nOwnerUser = int(oUser.id);
+	var oAppShare = (new dao.table(\"t_wf_app\")).Single(\"where isdeleted=0 and name=? and shared=1\",sAppName);
+	if( null <> oAppShare ) nOwnerUser = int(oAppShare.userid);
+	
+	//流程版本
+	var nVer=0;
+	{
+		var obj = (new dao.table(\"t_wf_app\")).Single(\"select max(ver) as v from t_wf_app where isdeleted=0 and name=?\",sAppName);
+		if( null <> obj ) nVer = 1 + int(obj.v);
+		else nVer = 1;
+	}
+	
+	//保存新版本的流程
+	{
+		var obj=
+		{
+			\"name\"		:			sAppName,
+			\"displayname\"	:			oNode.displayname,
+			\"desc\"		:			oNode.desc,
+			\"userid\"	:			nOwnerUser,
+			\"ver\"		:			nVer,
+			\"createtime\"	:			(new DateTime()),
+			\"design\"	:			oNode.design,
+			\"module\"	:			oNode.modulecode
+		};
+		(new dao.table(\"t_wf_app\")).Add(obj);
+	}
+
+	//返回上传结果
+	echo(1);
+}
+catch(ex)
+{
+	echo(\"上传失败，原因是：\"+ex);
+}
+%>"
+Name:ServicePage1
+PageID:FP23D436B38A734569E187D0370FD8FC07
+Position
+{
+Height:235
+Left:79
+Top:65
+Width:419
+}
+}

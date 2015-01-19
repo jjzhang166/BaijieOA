@@ -1,0 +1,48 @@
+BjPage
+{
+AdjustFrame:0
+BeforeCreate:""
+BodyProp:""
+BootstrapVer:2
+Caption:""
+Enabled:1
+Name:BjPage1
+PageID:""
+ParenClass:""
+Visible:1
+Workflow:0
+Position
+{
+Height:600
+Left:62
+Top:30
+Width:800
+}
+Events
+{
+Def:""
+OnLoad:""
+}
+@
+{
+Html
+{
+BeforeCreate:""
+Caption:login.esh
+Code:"<%
+if( me.»á»°._Session.ID <> \"\" ) redirect(\"main/mydesk.esh\");
+%>
+<script type=\"text/javascript\">
+        window.location.href = \"login.esh\";
+    </script>"
+Name:Html1
+Position
+{
+Height:20
+Left:104
+Top:111
+Width:80
+}
+}
+}
+}

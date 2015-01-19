@@ -1,0 +1,10 @@
+public function CheckSession()
+{
+	var oThis = aop_this();
+	var oSession = new session();
+	if( oSession.ID ==  "" )
+		redirect((new vo()).FixUrl("/login.esh?sessionout=1"));
+	//(new log()).Infor("------------- aop this="+ typeof(oThis));
+	//throw "no session£¬ÇëÏÈµÇÂ¼"; 
+}
+

@@ -1,0 +1,43 @@
+public const 表名 = "t_office_supplies_store";
+
+public function LoadByID(var id)
+{
+	var oRecord = (new dao.table(表名)).Single("where isdeleted=0 and id=?",int(id));
+	return (oRecord);
+}
+
+//增加库存
+public function 增加库存(var sName,var nCatID,var sUnit,var nAmount)
+{
+	var obj = (new dao.table(表名)).Single("where name=? and catid=? and unit=?",sName,nCatID,sUnit);
+	if( obj == null )
+	{
+		(new dao.table(表名)).Add({
+			"name" : sName,
+			"catid" : nCatID,
+			"unit" : sUnit,
+			"amount" : nAmount
+		});
+	}
+	else
+	{
+		var nCount = int(obj.amount);
+		nCount += int(nAmount);
+		(new dao.table(表名)).Update({"amount":nCount},"id",obj.id);
+	}
+}
+//减少库存
+public function 减少库存(var sName,var nCatID,var sUnit,var nAmount)
+{
+	var obj = (new dao.table(表名)).Single("where name=? and catid=? and unit=?",sName,nCatID,sUnit);
+	if( obj == null )
+	{
+		throw "库存下溢";
+	}
+	else
+	{
+		var nCount = int(obj.amount);
+		nCount -= int(nAmount);
+		(new dao.table(表名)).Update({"amount":nCount},"id",obj.id);
+	}
+}

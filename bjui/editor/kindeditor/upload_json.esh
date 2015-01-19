@@ -1,0 +1,31 @@
+<%
+try
+{
+	var session = new session();
+	if( session.ID == "" ) throw "会话已过期";
+	var vo = new vo();
+
+	var file = vo.imgFile;
+
+	var sFileName = file.FileName;
+	var iPos = sFileName.ReverseFind(".");
+	if( iPos < 0 ) throw "请上传带有后缀名的文件";
+	var sExt = sFileName.Right(sFileName.Length-iPos).ToLower();
+	if( !(sExt == ".png" || sExt == ".jpg" || sExt == ".jpeg" || sExt == ".rar" || sExt == ".zip" || sExt == ".gif" ||
+		sExt == ".bmp" ) ) 
+		throw "上传非法的文件类型";
+
+	var Uploaded = vo.FixUrl("/upload/abc/"+ (new helper()).NewGUID()+ sExt);
+
+	file.WriteToFile(Uploaded);
+
+	var sResult = "{ \"error\" : 0, \"url\": \""+ Uploaded+"\"}";
+	echo(sResult);
+}
+catch(ex)
+{
+	var sResult = "{ \"error\" : 1, \"message\": \""+ ex+"\"}";
+	echo(sResult);
+}
+
+%>

@@ -1,0 +1,448 @@
+BjPage
+{
+AdjustFrame:0
+BeforeCreate:""
+BodyProp:""
+BootstrapVer:2
+Caption:选择部门
+Enabled:1
+Name:BjPage1
+PageID:""
+ParenClass:""
+Visible:1
+Workflow:""
+Position
+{
+Height:600
+Left:62
+Top:48
+Width:800
+}
+Events
+{
+Def:""
+OnLoad:"if( me._vo.Has(\"commitcall\") ) me.会话._Session[\"CommitCall\"] = me._vo.commitcall;
+me.会话._Session[\"input_unitid\"] = me._vo.id;
+var obj = (new dao.table(\"t_unit\")).Single(\"where isdeleted=0 and id=?\",int(me._vo.id));
+if( obj <> null ) me.会话._Session[\"input_unitname\"] = obj.name;
+else
+{
+	obj = (new dao.table(\"t_org\")).Single(\"where 1=1\");
+	if( obj <> null ) me.会话._Session[\"input_unitname\"] = obj.name;
+	else me.会话._Session[\"input_unitname\"] = \"\";
+}"
+}
+@
+{
+BjBreadcrumbNav
+{
+BeforeCreate:""
+ExtProp:""
+Name:BjBreadcrumbNav1
+Position
+{
+Height:61
+Left:36
+Top:35
+Width:627
+}
+@
+{
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:当前部门：
+Enabled:1
+ExtProp:""
+ID:""
+Name:Box1
+TagName:span
+Visible:1
+Position
+{
+Height:43
+Left:11
+Top:10
+Width:70
+}
+}
+EasyScript
+{
+Caption:计算路径
+Code:"var UnitPath = modulecall(\"模型.组织.部门.GetUnitPath\",int(me._vo.id) );
+var UnitCount = UnitPath.Count;"
+CodeType:ember
+Name:EasyScript2
+Position
+{
+Height:43
+Left:99
+Top:10
+Width:80
+}
+}
+ConditionControl
+{
+Action:"var i=UnitCount-1;i >= 0 ;i--"
+BeforeCreate:""
+Method:for
+Name:ConditionControl1
+Position
+{
+Height:43
+Left:194
+Top:10
+Width:293
+}
+@
+{
+BjBreadcrumb
+{
+Active:"i == UnitCount-1"
+BeforeCreate:""
+Caption:<%echo(UnitPath[i][0]);%>
+Divider:"/"
+Enabled:1
+Name:BjBreadcrumb1
+Visible:1
+href:selectunit.esh?id=<%echo(UnitPath[i][1]);%>
+Position
+{
+Height:25
+Left:17
+Top:10
+Width:246
+}
+}
+}
+}
+}
+}
+BjDataGrid
+{
+BeforeCreate:""
+Caption:可选部门：
+DeleteUrl:""
+DellHint:确定删除选定的项？
+EditUrl:""
+Enabled:1
+MaxPage:9
+Name:t_unit
+PageSize:10
+URLParam:""
+URLParamDel:""
+UsePager:1
+Visible:1
+Position
+{
+Height:104
+Left:36
+Top:128
+UseHeight:0
+UseWidth:0
+Width:600
+}
+Events
+{
+CanDelete:"return false;"
+CanEdit:"return false;"
+CanSelect:"return true;"
+OnGetData:"
+//当前页
+var iCurPage = int(_CurPage);
+
+if( iCurPage > int(_TotalPage) )
+	iCurPage = int(_TotalPage);
+
+
+//每页记录数
+var iPageSize = int(_PageSize);
+
+if( iPageSize < 1 )
+	iPageSize = 1;
+
+
+//开始记录数
+var iStart = 1;
+if( iCurPage > 1 )
+	iStart = (iCurPage-1) * iPageSize;
+
+
+if( iStart > 0 )
+	iStart--;
+
+
+
+//当前页数据
+var datas = null;
+
+datas= (new dao.table(\"t_unit\")).Query(
+				\"where pid=? and isdeleted=0 limit \"+iStart+\",\"+iPageSize,
+				int(me._vo.id)
+				);
+each(a,datas)
+{
+	a.unittype = staticcall(\"dict.UnitType.Text\",a.unittype);
+}
+return datas;
+"
+OnGetTotalPage:"
+//总记录数
+var total= (new dao.table(\"t_unit\")).Single(\"select count(*) as c from t_unit where pid=? and isdeleted=0\",int(me._vo.id) ).c;
+
+//每页大小
+var iPageSize = _PageSize;
+if( iPageSize < 1 )
+	iPageSize = 1;
+
+
+//总页数
+var _TotalPage = int(total) + int(iPageSize) -1;
+_TotalPage = _TotalPage / int(iPageSize);
+
+return _TotalPage;
+"
+}
+@
+{
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:"#"
+Enabled:1
+Field:""
+IsKey:0
+IsOperator:0
+IsSerial:1
+Name:""
+StaticUrl:0
+ViewUrl:""
+Visible:1
+Position
+{
+Height:20
+Left:10
+Top:10
+Width:20
+}
+}
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:""
+Enabled:1
+Field:""
+IsKey:0
+IsOperator:1
+IsSerial:0
+Name:""
+StaticUrl:0
+ViewUrl:""
+Visible:1
+Position
+{
+Height:20
+Left:40
+Top:10
+Width:20
+}
+}
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:id
+Enabled:1
+Field:id
+IsKey:1
+IsOperator:0
+IsSerial:0
+Name:id
+StaticUrl:0
+ViewUrl:""
+Visible:0
+Position
+{
+Height:20
+Left:70
+Top:10
+Width:78
+}
+}
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:部门类型
+Enabled:1
+Field:unittype
+IsKey:0
+IsOperator:0
+IsSerial:0
+Name:unittype
+StaticUrl:0
+ViewUrl:""
+Visible:1
+Position
+{
+Height:20
+Left:158
+Top:10
+Width:78
+}
+}
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:1
+Caption:名称
+Enabled:1
+Field:name
+IsKey:0
+IsOperator:0
+IsSerial:0
+Name:name
+StaticUrl:0
+ViewUrl:selectunit.esh
+Visible:1
+Position
+{
+Height:20
+Left:256
+Top:10
+Width:78
+}
+}
+BjDataGridColumn
+{
+BeforeCreate:""
+CanView:0
+Caption:描述
+Enabled:1
+Field:desc
+IsKey:0
+IsOperator:0
+IsSerial:0
+Name:desc
+StaticUrl:0
+ViewUrl:""
+Visible:1
+Position
+{
+Height:20
+Left:366
+Top:10
+Width:78
+}
+}
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"text-align:center\" class=\"well\""
+ID:""
+Name:Box2
+TagName:""
+Visible:1
+Position
+{
+Height:62
+Left:36
+Top:258
+Width:385
+}
+@
+{
+BjButton
+{
+BeforeCreate:""
+Block:0
+ButtonType:normal
+Caption:确定
+Enabled:1
+Feedback:primary
+ID:""
+Inline:""
+Name:BjButton1
+Size:default
+URL:""
+URLParam:""
+Visible:1
+Position
+{
+Height:20
+Left:29
+Top:25
+Width:80
+}
+Events
+{
+OnClick:""
+OnClientClick:"
+SetOutput(\"input_unitid\",\"<% echo(me.会话._Session[\"input_unitid\"]);%>\");
+SetOutput(\"input_unitname\",\"<% echo(me.会话._Session[\"input_unitname\"]); %>\");
+CommitCall(\"<% echo( me.会话._Session[\"CommitCall\"] ); %>\");
+"
+}
+}
+Box
+{
+AfterCreate:""
+BeforeCreate:""
+Caption:""
+Enabled:1
+ExtProp:"style=\"margin-left:20px\""
+ID:""
+Name:Box4
+TagName:span
+Visible:1
+Position
+{
+Height:36
+Left:143
+Top:17
+Width:176
+}
+@
+{
+BjButton
+{
+BeforeCreate:""
+Block:0
+ButtonType:normal
+Caption:取消
+Enabled:1
+Feedback:none
+ID:""
+Inline:""
+Name:BjButton3
+Size:default
+URL:""
+URLParam:""
+Visible:1
+Position
+{
+Height:20
+Left:10
+Top:8
+Width:80
+}
+Events
+{
+OnClick:""
+OnClientClick:"CancelCall(\"<% echo( me.会话._Session[\"CommitCall\"] ); %>\");"
+}
+}
+}
+}
+}
+}
+}
+}
