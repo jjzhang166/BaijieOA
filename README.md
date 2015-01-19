@@ -10,8 +10,8 @@
 [在线演示](http://www.baijienet.com/oademo_0.html "百捷OA系统在线演示")
     
 #如何获得技术支持
-可以通过论坛、QQ群、邮件、电话等获得免费的技术支持。
-`论坛`：[点击进入](http://www.baijienet.com/bbs/home.esh "百捷论坛")
-`QQ群`：276228406
-`免费电话`：400-0809052
-`邮件`：[点此发邮件](mailto:mydee@21cn.com)
+可以通过论坛、QQ群、邮件、电话等获得免费的技术支持。<br>
+`论坛`：[点击进入](http://www.baijienet.com/bbs/home.esh "百捷论坛")<br>
+`QQ群`：276228406<br>
+`免费电话`：400-0809052<br>
+`邮件`：[点此发邮件](mailto:mydee@21cn.com)<br>
